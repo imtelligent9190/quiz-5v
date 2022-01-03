@@ -74,4 +74,32 @@ $query = "CREATE TABLE `wyniki` (
     `data_koniec` time NOT NULL
   )";
   $run = $mysqli->query($query);
+
+
+
+  //klasy
+  $query = "CREATE TABLE `klasa` (
+    `id` int(11) PRIMARY KEY AUTO_INCREMENT,
+    `klasa` varchar(2) NOT NULL 
+  )";
+  $run = $mysqli->query($query);
+  $zakres=array();
+  $zakres[0]='G';
+  $zakres[1]='G';
+  $zakres[2]='N';
+  $zakres[3]='G';
+  for ($i=0; $i < sizeof($zakres); $i++) { 
+        for ($j=65; $j < ord($zakres[$i])+1; $j++) {
+            $x=$i+1..chr($j);
+            $select="SELECT * FROM klasa WHERE `klasa`='".$x."'";
+            echo $select;
+            $check=$mysqli->query($select);
+            if ($check->num_rows==0){
+                $insert="INSERT INTO klasa VALUES('null','".$x."')";
+                $insertt=$mysqli->query($insert);
+            }
+        }
+  }
+  
+  
 ?>

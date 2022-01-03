@@ -8,7 +8,9 @@ if(isset($_POST['submit'])){
     $grupa=$_POST['grupa'];
     $imie=$_POST['imie'];
     $nazwisko=$_POST['nazwisko'];
-    if ($login!= '' && $haslo!= '' && $klasa!= '' && $grupa!= '' && $imie!= '' && $nazwisko!=''){
+    $sql="SELECT * FROM klasa WHERE klasa='".$klasa."'";
+    $rezultat=$mysqli->query($sql);
+    if ($login!= '' && $haslo!= '' && $rezultat->num_rows==1 && $grupa!= '' && $imie!= '' && $nazwisko!=''){
         
         $sql2="SELECT * FROM konta WHERE `login`='".$login."'";
         $rezultat2=$mysqli->query($sql2);

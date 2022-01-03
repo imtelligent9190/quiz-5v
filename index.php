@@ -61,7 +61,7 @@
 if (isset($_SESSION['grupa']) && isset($_SESSION['klasa'])){
   $date=gmdate('Y-m-d H:i:s',time()+3600);
   $aktualny = strtotime($date);
-  $query="SELECT * FROM kolejka WHERE klasa='".$_SESSION['klasa']."' AND grupa='3' OR grupa LIKE'".$_SESSION['grupa']."'";
+  $query="SELECT * FROM kolejka WHERE klasa='".$_SESSION['klasa']."' AND grupa='3' OR klasa='".$_SESSION['klasa']."' AND grupa LIKE'".$_SESSION['grupa']."'";
   $results= $mysqli->query($query) or die($mysqli_error.__LINE__);
   if($results->num_rows!=0){
     while($row=$results->fetch_assoc()){

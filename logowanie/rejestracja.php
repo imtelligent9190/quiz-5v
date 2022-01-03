@@ -1,4 +1,5 @@
 <?php
+include_once '../db/connect.php';
 session_start();
 unset($_POST);
 ?>
@@ -38,7 +39,8 @@ unset($_POST);
         <h1>Rejestracja</h1>
         <p>Login: <input class="input" type="text" name="login"></p>
         <p>Haslo: <input class="input" type="text" name="haslo"></p>
-        <p>Klasa: <input class="input" type="text" maxlength="2" name="klasa"></p>
+        <p>Klasa: <input class="input" list='name-quiz' name="klasa" autocomplete="off" required="required"></p>
+ 
         <p>Grupa: <input class="input" type="number" min='1' max='2' value='1'name="grupa"></p>
         <p>Imie: <input class="input" type="text" name="imie"></p>
         <p>Nazwisko: <input class="input" type="text" name="nazwisko"></p>
@@ -50,5 +52,15 @@ unset($_POST);
         ?>
         <input type="submit" name='submit' value="Register">
     </form>
+    <datalist id="name-quiz">
+      <?php
+    $sql="SELECT * FROM klasa";
+    $rezultat=$mysqli->query($sql);
+    while($row=$rezultat->fetch_assoc()){
+        echo "<option value='".$row['klasa']."'>";
+    }
+    ?>
+  </datalist>
 </body>
 </html>
+ 

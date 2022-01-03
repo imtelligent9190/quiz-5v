@@ -101,6 +101,7 @@ $rezultat=$mysqli->query($sql);
             przyciski.innerHTML="<button  onclick='deletee("+id2+")' type='button' name="+id2+" value='edit' style='background-color: lime; border: none; '><i class='fas fa-check'></i></button><button onclick='window.location.reload()' type='submit' name="+id2+" value='DELETE' style='background-color: red; border: none;'><i class='fas fa-times-circle'></i></button>"
             if (pierwszy==0){
                 pierwszy=1;
+                alert("czy jesteś pewny usunięcia zaplanowanego quizu spowoduje to usuniecie wszystkich wyników zwiazanych z tym zaplanowanym quizem")
             }
             else if(pierwszy==1){
                 location.href="delete.php?n="+id2;
@@ -134,7 +135,7 @@ $rezultat=$mysqli->query($sql);
                 <td><input class='".$row['id_sesji']."' name='data-k".$row['id_sesji']."' value='".$row['data_koniec']."'disabled></td>
                 <td><input class='".$row['id_sesji']."' name='klasa".$row['id_sesji']."' value='".$row['klasa']."'disabled></td>
                 <td><input type='number' class='".$row['id_sesji']."' name='grupa".$row['id_sesji']."' value='".$row['grupa']."'disabled min='1' max='3'></td>
-                <td  class='Modyfikacja' id_sesji='".$row['id_sesji']."'><div ><button  onclick='change(".$row['id_sesji'].")' type='button' name=".$row['id_sesji']." value='edit' style='background-color: lightblue; border: none; '><i class='fas fa-pen' ></i></button></form>
+                <td  class='Modyfikacja' id='".$row['id_sesji']."'><div ><button  onclick='change(".$row['id_sesji'].")' type='button' name=".$row['id_sesji']." value='edit' style='background-color: lightblue; border: none; '><i class='fas fa-pen' ></i></button></form>
                 <button onclick='deletee(".$row['id_sesji'].")' type='button' name=".$row['id_sesji']." value='DELETE' style='background-color: red; border: none;'><i class='fas fa-trash-alt'></i></button><div></td></tr>";
                 $ile++;
             }

@@ -34,7 +34,7 @@ session_start();
             ?>
         Data-rozpoczęczia:<input type="datetime-local" name="datar" required="required"><br>
         Data-zakończenia:<input type="datetime-local" name="datak" required="required"><br>
-        Klasa:<input type="text" name='klasa' maxlength="2" required="required"><?php
+        Klasa: <input class="input" list='klasy' name="klasa" autocomplete="off" required="required"><?php
                 if(isset($_SESSION['blad_set_klasa'])){
                     echo '<br><span style="color:red;">'.$_SESSION['blad_set_klasa']."</span><br>";
                     unset($_SESSION['blad_set_klasa']);
@@ -55,7 +55,14 @@ session_start();
         <input type="submit" value="Create">
     </form></div>
 </form>
-
-    
+<datalist id="klasy">
+      <?php
+    $sql="SELECT * FROM klasa";
+    $rezultat=$mysqli->query($sql);
+    while($row=$rezultat->fetch_assoc()){
+        echo "<option value='".$row['klasa']."'>";
+    }
+    ?>
+  </datalist>
 </body>
 </html>

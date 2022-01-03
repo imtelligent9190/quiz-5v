@@ -31,14 +31,16 @@ if (isset($_POST)){
         $_SESSION['blad_set_nazwa']='Nie został wybrany żaden quiz';
         header("Location: set_quiz.php");
     }
-     if ($klasa==''){
+    $sql="SELECT * FROM klasa WHERE klasa='".$klasa."'";
+    $check=$mysqli->query($sql);
+     if ($check->num_rows==0){
         $_SESSION['blad_set_klasa']='Nie został wybrana żadna klasa';
         header("Location: set_quiz.php");
     }
     if ($datak<gmdate('Y-m-d H:i:s ',time()+3600)){
         $_SESSION['blad_set_data']='wybrałęś date ktra już mineła';
     };
-    if ($name!= '' && $klasa!= '' && $grupa!=0 && $datak>gmdate('Y-m-d H:i:s ',time()+3600)){
+    if ($name!= '' && $check->num_rows!=0 && $grupa!=0 && $datak>gmdate('Y-m-d H:i:s ',time()+3600)){
             $search="SELECT id FROM quizy WHERE `name`='".$name."' AND `id_n`='".$_SESSION['user-id']."'";
             $id_quiz=$mysqli->query($search);
             $id_quiz=$id_quiz->fetch_assoc();
