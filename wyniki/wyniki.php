@@ -4,7 +4,9 @@ include_once '../includes/header.php';
 session_start();
 if (isset($_POST['submit'])){
     $wyszukiwanie=$_POST['wyszukiwarka'];
-    $sql="SELECT * FROM kolejka  ORDER BY id_sesji '";
+    $sql="SELECT * FROM `kolejka` 
+    INNER JOIN quizy on quizy.id= kolejka.id_quiz
+    WHERE quizy.id_n='".$_SESSION['user-id']."' and kolejka.klasa like '%".$wyszukiwanie."%' OR kolejka.grupa like '%".$wyszukiwanie."%' ORDER BY id_sesji DESC";
     unset($_POST);
     $search=array();
     $index=0;
@@ -15,9 +17,12 @@ if (isset($_POST['submit'])){
     }
 
 }else{
-    $sql="SELECT * FROM kolejka ORDER BY id_sesji ";
+    $sql="SELECT * FROM `kolejka` 
+    INNER JOIN quizy on quizy.id= kolejka.id_quiz
+    WHERE quizy.id_n='".$_SESSION['user-id']."' ORDER BY id_sesji DESC";
     
 }
+// echo $sql;
 $rezultat=$mysqli->query($sql);
 
 ?>
@@ -65,12 +70,12 @@ $rezultat=$mysqli->query($sql);
     </style>
 </head>
 <body>
-    
-    <table>
-        <form method="post">
+    <form method="post">
         <input name="wyszukiwarka" type="text">
         <input type="submit" name='submit'value='Szukaj'>
         </form>
+    <table>
+        
         <tr>
             <th class='id'>id</th>
             <th class='Login'>Nazwa Quizu</th>

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -78,13 +79,15 @@ while($row=$selectscoree->fetch_assoc()){
         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
             <ul class="list-group">
             <?php
+
                     for ($i=0; $i < sizeof($tests); $i++) 
                     {   
-                        $procent = number_format($tests[$i]["score"]/$tests[$i]["maxpoint"]*100, 2);
+                        $procent = number_format($tests[$i]["poprawne"]/$tests[$i]["total_question"]*100, 2);
                         if ($procent == 0) 
                         {
                             echo("
-                            <li class='list-group-item'>{$tests[$i]["name"]}</li>
+                            <li class='list-group-item'>{$tests[$i]["0"]}</li>
+
                             <div class='progress'>
                                 <div class='progress-bar bg-danger' role='progressbar' style='width: {0}%;' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>0.00%</div>
                             </div>
@@ -95,7 +98,8 @@ while($row=$selectscoree->fetch_assoc()){
                             if ($procent > 0 && $procent < 33) 
                             {
                                 echo("
-                                <li class='list-group-item'>{$tests[$i]["name"]}</li>
+
+                                <li class='list-group-item'>{$tests[$i]["0"]}</li>
                                 <div class='progress'>
                                     <div class='progress-bar bg-danger' role='progressbar' style='width: {$procent}%;' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>{$procent}%</div>
                                 </div>
@@ -104,7 +108,8 @@ while($row=$selectscoree->fetch_assoc()){
                             if ($procent > 33 && $procent < 66) 
                             {
                                 echo("
-                                <li class='list-group-item'>{$tests[$i]["name"]}</li>
+
+                                <li class='list-group-item'>{$tests[$i]["0"]}</li>
                                 <div class='progress'>
                                     <div class='progress-bar bg-warning' role='progressbar' style='width: {$procent}%;' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>{$procent}%</div>
                                 </div>
@@ -113,7 +118,9 @@ while($row=$selectscoree->fetch_assoc()){
                             if ($procent > 66 && $procent <= 100) 
                             {
                                 echo("
-                                <li class='list-group-item'>{$tests[$i]["name"]}</li>
+
+                                <li class='list-group-item'>{$tests[$i]["0"]}</li>
+
                                 <div class='progress'>
                                     <div class='progress-bar bg-success' role='progressbar' style='width: {$procent}%;' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>{$procent}%</div>
                                 </div>
