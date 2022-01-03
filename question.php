@@ -1,11 +1,9 @@
 <?php
-
+if(!isset($_SESSION['id_sesji']) and !isset($_SESSION['user']) and !isset($_SESSION['user-id'])){
 include_once 'includes/header.php';
 include_once 'db/connect.php';
 session_start();
 // print_r($_SESSION);
-echo($_SESSION["total"]);
-echo($_SESSION["oper"]);
 
 if(!isset($_SESSION['start'])){
     $_SESSION['start']=gmdate('H:i:s',time()+3600);
@@ -113,4 +111,8 @@ $_SESSION["wyb"]=$choices;
     });
 </script> 
 
-<?php include_once 'includes/footer.php'; ?>
+<?php include_once 'includes/footer.php'; 
+}
+else{
+    header("logowanie/logowanie.php");
+}?>
