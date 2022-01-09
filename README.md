@@ -28,4 +28,4 @@ chociaz i sięgnął po pismo święte i poczytał sobie to może byś się odmi
 kościoła bo widac już dawno szatan jest w tobie człowieku ,nie lubisz kościoła to chociaż siedz
 cicho i nie obrażaj innych ludzi
 
-~ W PODZIENCE SZREKOWI 
+~ W PODZIĘCE  SZREKOWI 
