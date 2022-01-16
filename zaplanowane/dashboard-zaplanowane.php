@@ -21,7 +21,31 @@ $rezultat=$mysqli->query($sql);
     <title>Document</title>
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <style>
-
+        h1{
+            width: 100%;
+            text-align: center;
+            margin: 0 auto;
+            border-bottom: 2px solid black;
+            font-size: 2em;
+            padding: 1em;
+        }
+        body{
+            display: block;
+        }
+        body>a{
+            margin: 1em auto;
+            width: 80%;
+            display: block;
+/*            margin: 0 auto;*/
+            text-decoration: none;
+            border: 1px solid black;
+            border-radius: 10px;
+            padding: 2px 10px;
+            align-content: center;
+            text-align: center;
+            background-color: blue;
+            color: white;
+        }
         table,tr,th,td{
             border: 2px solid #121221;
             transition: 0.5s;
@@ -34,7 +58,7 @@ $rezultat=$mysqli->query($sql);
             width:20px;
         }
         table{
-            margin: 0px;
+            margin: 0 auto;
             position: relative;
         }
         td input{
@@ -114,7 +138,7 @@ $rezultat=$mysqli->query($sql);
         }
     
     </script>
-    
+    <h1>Zaplanowane QUIZZY</h1>
     <table>
         <tr>
             <th class='id'>id</th>
@@ -147,7 +171,7 @@ $rezultat=$mysqli->query($sql);
         echo "<option value='".$row['name']."'>";
     }?>
   </datalist> 
-        <a type='submit' value='zapisz' href="../index.php">back to menu<a>
+        <a type='submit' value='zapisz' href="../index.php">back to menu</a>
     
     </table>
 </body>

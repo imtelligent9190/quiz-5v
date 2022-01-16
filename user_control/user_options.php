@@ -10,10 +10,29 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </head>
 <body>
-
+<style>
+    body{
+        width: 100%;
+        border-bottom: 2px solid black;
+    }
+    nav{
+        margin: 0 auto;
+        text-align: center;
+        display: table;
+        padding-top: 2em;
+    }
+    a{
+        font-size: 1em;
+        font-family: sans-serif;
+        font-style: normal;
+        font-weight: 100;
+    }
+    
+</style>
 <?php
     include_once '../db/connect.php';
     include_once '../includes/header.php';
+    include_once '../includes/footer.php';
     session_start();
 $selectu="SELECT * FROM konta WHERE id='".$_SESSION['user-id']."'";
 $selectuser=$mysqli->query($selectu);
@@ -131,7 +150,7 @@ while($row=$selectscoree->fetch_assoc()){
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="flush-headingLogin">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseLogin" aria-expanded="false" aria-controls="flush-collapseLogin">
-                            Zmieñ Login
+                            Zmień Login
                         </button>
                     </h2>
                     <div id="flush-collapseLogin" class="accordion-collapse collapse" aria-labelledby="flush-headingLogin" data-bs-parent="#accordionFlushExample">
@@ -142,7 +161,7 @@ while($row=$selectscoree->fetch_assoc()){
                                 <label class="col-sm-2 col-form-label">Nowy login:</label>
                                 <input name="login" type="text" class="form-control bg-secondary" aria-describedby="button-addon2">
                                 <br>
-                                <button name="newlogin" class="btn btn-success" type="submit" id="button-addon2">Zmieñ</button>
+                                <button name="newlogin" class="btn btn-success" type="submit" id="button-addon2">Zmień</button>
                             </div>
                         </div>
                     </div>
@@ -150,7 +169,7 @@ while($row=$selectscoree->fetch_assoc()){
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="flush-headingHasło">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseHasło" aria-expanded="false" aria-controls="flush-collapseHasło">
-                            Zmieñ Hasło
+                            Zmień Hasło
                         </button>
                     </h2>
                     <div id="flush-collapseHasło" class="accordion-collapse collapse" aria-labelledby="flush-headingHasło" data-bs-parent="#accordionFlushExample">
@@ -162,10 +181,10 @@ while($row=$selectscoree->fetch_assoc()){
                                 </div>
                             </div>
                             <div class="input-group mb-3">
-                                <label for="inputPassword" class="col-sm-2 col-form-label">Powtórz haslo:</label>
+                                <label for="inputPassword" class="col-sm-2 col-form-label">Powtórz hasło:</label>
                                 <input name="pass2" type="password" class="form-control bg-secondary" aria-describedby="button-addon2">
                                 <br>
-                                <button name="newpassword" class="btn btn-success" type="submit" id="button-addon2">Zmieñ</button>
+                                <button name="newpassword" class="btn btn-success" type="submit" id="button-addon2">Zmień</button>
                             </div>
                         </div>
                     </div>

@@ -13,6 +13,31 @@ session_start();
 
 </head>
 <body>
+    <style>
+        form{
+            display: grid;
+        }
+        input["checkbox"]{
+            display: block;
+        }
+        .grupa{
+            display: block;
+        }
+        h1{
+            width: 100%;
+            border-bottom: 2px solid black;
+            text-align: center;
+            padding-bottom: 1em;
+            padding-top: 1em;
+        }
+        input[type = "submit"]{
+            background-color: blue;
+            border-radius: 10px;
+            color: white;
+        }
+    
+    </style>
+    <h1>Ustawianie QUIZZU</h1>
     <form method="post" action='process_set.php'>
         Wybierz nazwe quizu: <input list='name-quiz' name="name" autocomplete="off" required="required">
   <datalist id="name-quiz">
@@ -42,8 +67,11 @@ session_start();
                     echo "<br>";
                 }
             ?>
-        grupa: <input type="checkbox" name="1" value="1" >1
-            <input type="checkbox" name="2" value="2">2 
+        grupa: 
+        <div class="grupa">
+        <input type="checkbox" name="1" value="1" >1 <br>
+        <input type="checkbox" name="2" value="2">2 
+            </div>
             <?php
                 if(isset($_SESSION['blad_set_grupa'])){
                     echo '<br><span style="color:red;">'.$_SESSION['blad_set_grupa']."</span><br>";

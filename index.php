@@ -14,9 +14,47 @@
 
 <div class="container">
 
+<h1>
+    
+    QUIZZ</h1>
 
-
-
+<style>
+    h1{
+        padding-top: 2em;
+        padding-bottom: 2em;
+        text-align: center;
+        margin: 0 auto;
+        width: 100%;
+        border-bottom: 2px solid black;
+    }
+    form{
+        display: flex;
+    }
+    span{
+/*        background: black.*/
+        display: inline-flex;
+        text-align:center;
+    }
+    a{
+        margin: 0 auto;
+        text-decoration: none;
+        font-size: 1em;
+        border: 1px solid black;
+        border-radius: 20px;
+        padding: 10px 2em;  
+        color: white;
+        background-color: #337df4;
+        text-align: center;
+        display: table;
+        margin-top: 1em;
+        width: auto;
+    }
+    a:hover{
+        transition: 0.5s;
+        color: black;
+        background-color:#33c0f4 
+    }
+    </style>
 <?php
   if (!isset($_SESSION['user-id'])){
     echo '<a href="logowanie/logowanie.php">Zaloguj się</a>';
@@ -43,14 +81,16 @@
     $_SESSION['klasa']=$wiersz['klasa'];
     $_SESSION['grupa']=$wiersz['grupa'];
     echo '<a href="user_control/user_options.php">Moje konto</a> ';
+      
       if(isset($_SESSION['uprawinienia'])){
         if($_SESSION['uprawinienia']=='1'){
-          echo '<a href="admin/paneladmin.php">Zarządzaj Użytkownikami</a> ';
+          echo "<h1> narzędzia administratora </h1>";
+          echo '<span class="echo"><a href="admin/paneladmin.php">Zarządzaj Użytkownikami</a> ';
           echo '<a href="quizy/add_quiz.php">Dodaj quiz</a> ';
           echo '<a href="quizy/set_quiz.php">Zaplanuj quiz</a> ';
           echo '<a href="modyfiakcja_quiz/modify_quiz.php">Modyfikuj quizy</a> ';
           echo '<a href="zaplanowane/dashboard-zaplanowane.php">Zaplanowane quizy</a> ';
-          echo '<a href="wyniki/wyniki.php">Wyniki quizów</a> ';
+          echo '<a href="wyniki/wyniki.php">Wyniki quizów</a></span> ';
             }
         }
       }
