@@ -67,13 +67,36 @@ $rezultat=$mysqli->query($sql);
         div{
             display:inline-block;
         }
+        .gora{
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            
+        }
+        h1{
+            width: 100%;
+            border-bottom: 2px solid black;
+            text-align: center;
+            padding: 1em;
+        }
+        a{
+            text-decoration: none;
+            border: 1px solid black;
+            border-radius: 10px;
+            background-color: blue;
+            color: white;   
+            padding: 3px 10px;
+        }
     </style>
 </head>
 <body>
+    <h1>Wyniki QUIZZU</h1>
+    <div class="gora">
     <form method="post">
         <input name="wyszukiwarka" type="text">
         <input type="submit" name='submit'value='Szukaj'>
-        </form>
+        <a type='submit' value='zapisz' href="../index.php">back to menu</a>
+        </form></div>
     <table>
         
         <tr>
@@ -112,8 +135,12 @@ $rezultat=$mysqli->query($sql);
         echo "<option value='".$row['name']."'>";
     }?>
   </datalist> 
-        <a type='submit' value='zapisz' href="../index.php">back to menu<a>
+        
     
     </table>
+    <?php
+    include_once '../includes/footer.php';
+    
+    ?>
 </body>
 </html>

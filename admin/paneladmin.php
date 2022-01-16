@@ -39,6 +39,24 @@ $rezultat=$mysqli->query($sql);
             border: 2px solid #121221;
             transition: 0.5s;
         }
+        table>form{
+            margin: 0 auto;
+            text-align: center;
+        }
+        a{
+            text-decoration: none;
+            border: 1px solid black;
+            border-radius: 10px;
+            color: white;
+            background: blue;
+/*            padding: 10px;*/
+        }
+        input["submit"]{
+            color: blue;
+            margin: 0 auto;
+            display: flex;
+            
+        }
         th,td{
             width:150px;
             text-align:center;
@@ -47,8 +65,9 @@ $rezultat=$mysqli->query($sql);
             width:20px;
         }
         table{
-            margin: 0px;
+            margin: 0 auto;
             position: relative;
+            top: 2em;
         }
         td input{
             text-align:center;
@@ -62,8 +81,13 @@ $rezultat=$mysqli->query($sql);
             width:20px;
            
         }
+        .gora{
+            margin: 0 auto;
+            display: table;
+            padding-top: 2em;
+        }
         div{
-            display:inline-block;
+/*            display:inline-block;*/
         }
     </style>
 </head>
@@ -134,10 +158,13 @@ $rezultat=$mysqli->query($sql);
     </script>
     
     <table>
+        <div class="gora">
         <form method="post">
-        <input name="wyszukiwarka" type="text">
-        <input type="submit" name='submit'value='Szukaj'>
+            <input name="wyszukiwarka" type="text">
+            <input type="submit" name='submit'value='Szukaj'>
+            <a type='submit' value='zapisz' href="../index.php">back to menu<a>
         </form>
+            </div>
         <tr>
             <th class='id'>id</th>
             <th class='Login'>Login</th>
@@ -168,8 +195,11 @@ $rezultat=$mysqli->query($sql);
             }
 
         ?>
-        <a type='submit' value='zapisz' href="../index.php">back to menu<a>
+        
     
     </table>
+    <?php
+            include_once '../includes/footer.php';
+    ?>
 </body>
 </html>
