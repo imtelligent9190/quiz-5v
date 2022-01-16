@@ -31,7 +31,27 @@ $rezultat=$mysqli->query($sql);
     <title>Document</title>
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <style>
-
+        h1{
+            width: 100%;
+            border-bottom: 2px solid black;
+            text-align: center;
+            padding: 1em;
+        }
+        .gora{
+            margin: 0 auto;
+            width: 100%;
+            text-align: center;
+            padding: 2em;
+        }
+        .gora>a{
+            text-decoration: none;
+            border: 1px solid black;
+            background-color: blue;
+            border-radius: 10px;
+            color: white;
+            padding: 2px 10px;
+        }
+        
         table,tr,th,td{
             border: 2px solid #121221;
             transition: 0.5s;
@@ -44,7 +64,8 @@ $rezultat=$mysqli->query($sql);
             width:20px;
         }
         table{
-            margin: 0px;
+            width: 80%;
+            margin: 0 auto;
             position: relative;
         }
         td input{
@@ -98,12 +119,15 @@ $rezultat=$mysqli->query($sql);
         }
     
     </script>
-    
+    <h1>Modyfikowanie QUIZZU</h1>
     <table>
+        <div class="gora">
         <form method="post">
         <input name="wyszukiwarka" type="text">
         <input type="submit" name='submit'value='Szukaj'>
+            <a type='submit' value='zapisz' href="../index.php">back to menu</a>
         </form>
+                </div>
         <tr>
             <th class='id'>id</th>
             <th class='Login'>Nazwa</th>
@@ -122,7 +146,7 @@ $rezultat=$mysqli->query($sql);
             }
 
         ?>
-        <a type='submit' value='zapisz' href="../index.php">back to menu<a>
+        
     
     </table>
 </body>

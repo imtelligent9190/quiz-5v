@@ -12,9 +12,20 @@ unset($_POST);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        *{
+            font-family: sans-serif;
+            font-style: normal;
+        }
         body{
             width: 100%;
             height: 100%;
+        }
+        h1{
+            padding-top: 1em;
+            display: block;
+            text-align: center;
+            border-bottom: 2px solid black;
+            font-size: 3em;
         }
         form{
             position: absolute;
@@ -31,12 +42,20 @@ unset($_POST);
             border-bottom: 2px solid;
             width: 200px;
         }
+        input[type="submit"]{
+            background-color: #337df4;
+            border: 1px solid black;
+            border-radius: 10px;
+            color: white;
+            font-size: 1em;
+        }
 
     </style>
 </head>
 <body>
+    <h1>Rejestracja</h1>
     <form action="procesreg.php" method="post">
-        <h1>Rejestracja</h1>
+        
         <p>Login: <input class="input" type="text" name="login"></p>
         <p>Haslo: <input class="input" type="text" name="haslo"></p>
         <p>Klasa: <input class="input" list='name-quiz' name="klasa" autocomplete="off" required="required"></p>
@@ -61,6 +80,11 @@ unset($_POST);
     }
     ?>
   </datalist>
-</body>
+
+ <?php
+
+include_once '../includes/footer.php';
+?>
+    </body>
+
 </html>
- 
