@@ -27,3 +27,5 @@ powiedz za co obrażasz taką osobę jak ojciec święty ?brak mnie słów ale j
 chociaz i sięgnął po pismo święte i poczytał sobie to może byś się odmienił .nie wiem idz do
 kościoła bo widac już dawno szatan jest w tobie człowieku ,nie lubisz kościoła to chociaż siedz
 cicho i nie obrażaj innych ludzi
+
+~ W PODZIĘCE  SZREKOWI 
