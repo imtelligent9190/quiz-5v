@@ -12,8 +12,8 @@
     unset($_SESSION['score']);
     unset($_SESSION['id']);
     // print_r($_SESSION);
-    $_SESSION["pytania"]=array();
-    $_SESSION["odp"]=array();
+    
+    
     $_SESSION["oper"]=0;
     $_SESSION["total"]=0;
     $_SESSION["wyb"]=array();
@@ -36,29 +36,7 @@ $quiz2=$results2->fetch_assoc();
 $select="SELECT * FROM questions WHERE id_quiz='".$quiz['id_quiz']."'";
 $rezultat=$mysqli->query($select);
 $total=$rezultat->num_rows;
-
-$query = "SELECT QuestionNumber, QuestionText, img FROM `questions` WHERE id_quiz='".$quiz['id_quiz']."'";
-
-
-$run = $mysqli->query($query);
-foreach ($run as $key) {
-    array_push($_SESSION["pytania"],$key);
-
-}
-
-
-
-
-$query = "SELECT questionNumber,isCorrect, choiceText FROM `choices` WHERE id_quiz='".$quiz['id_quiz']."'";
-$run = $mysqli->query($query);
-foreach ($run as $key) {
-    array_push($_SESSION["odp"],$key);
-
-}
-$query="SELECT * FROM questions WHERE id_quiz='".$quiz['id_quiz']."'";
-
-$results= $mysqli->query($query) or die($mysqli_error.__LINE__);
-$_SESSION["total"]=$results->num_rows;
+$_SESSION["total"]=$total;
 ?>
 
 <div class="container">
@@ -73,7 +51,7 @@ $_SESSION["total"]=$results->num_rows;
 <main>
     <div class="container">
         <!-- <h2> Test your PHP Knowlege</h2> -->
-<p> This is the multiple choice quiz to test your knowledge</p>
+<p> This is quiz to test your knowledge</p>
 <ul>
     <li><strong> Number of Questions: </strong><?php echo $total;?> </li>
     <li><strong> Type Of Quiz: </strong> Multiple Choice</li>

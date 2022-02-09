@@ -23,16 +23,17 @@ if (!isset($_SESSION['score'])) {
 
 }
 
-$wybrany = $_POST["choice"]; // wybrany jest tu a ludzi w pizdu  
+$wybrany = $_POST["choice"]; 
 
 
 // get correct
-foreach($_SESSION["wyb"] as $key){
-    if ($key["choiceText"]==$wybrany){
-        $dobra  = $key["isCorrect"];
-    }
-}
-$end = $dobra == 1;
+$query = 'SELECT choiceText FROM choices WHERE id_quiz='.$_SESSION['id_quiz_gra'].' AND isCorrect = 1 AND  QuestionNumber='.$_SESSION["oper"]+1;
+$run =  $mysqli->query($query);
+$poprawna = mysqli_fetch_row($run);
+$poprawna = $poprawna[0];
+
+
+$end = $poprawna == $wybrany;
 
 if($end){
 
