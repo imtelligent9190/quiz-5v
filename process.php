@@ -22,11 +22,16 @@ if (!isset($_SESSION['score'])) {
     $_SESSION['$score'] = 0;
 
 }
-
-$wybrany = $_POST["choice"]; 
+if(isset($_POST["choice"])){
+$wybrany = $_POST["choice"];
+}
+else{
+    $wybrany = "-";
+} 
 
 
 // get correct
+if($_SESSION["size"]!=0){
 $query = 'SELECT choiceText FROM choices WHERE id_quiz='.$_SESSION['id_quiz_gra'].' AND isCorrect = 1 AND  QuestionNumber='.$_SESSION["oper"]+1;
 $run =  $mysqli->query($query);
 $poprawna = mysqli_fetch_row($run);
@@ -42,6 +47,11 @@ if($end){
 }else{
     $zle=array($_SESSION["oper"]+1,$wybrany);
     array_push($_SESSION['zle'],$zle);
+}
+}
+else{
+    $wpisane = $_POST["otwarta"]; // otwarta odpowiedz jest tu 
+    
 }
 
 

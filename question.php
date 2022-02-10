@@ -44,7 +44,8 @@ while($row = $run->fetch_assoc()){
 };
 
 
-
+$size = sizeof($odp);
+$_SESSION["size"] = $size;
 
 
 
@@ -64,7 +65,9 @@ while($row = $run->fetch_assoc()){
         <p class="question"><?php echo $pytanie[0];?> </p>
 
         <div><?php //tu będzie kiedyś zdjęcie?></div>
-
+        <?php
+        if($size!=0){
+        ?>
         <form action="process.php" method="post">
             <ul class="choices">
                 <?php
@@ -77,6 +80,20 @@ while($row = $run->fetch_assoc()){
             <input type="hidden" id='sciagal' name="sciagal" value="<?php echo $_SESSION["oper"]+1;?>" />
             <input type="hidden" name="QuestionText" value="<?php echo $qtext["QuestionText"];?>" />
         </form>
+        <?php }
+        else{?>
+            <form action="process.php" method="post" id="otwarte">
+            <ul class="choices">
+                <textarea rows = "4" cols = "40"  	name="otwarta" form_id="otwarte"></textarea>
+            </ul>
+            <input id="NextQuest" type="submit" value="submit" class="btn btn-success"/>
+            <input type="hidden" name="number" value="<?php echo $_SESSION["oper"]+1;?>" />
+            <input type="hidden" id='sciagal' name="sciagal" value="<?php echo $_SESSION["oper"]+1;?>" />
+            <input type="hidden" name="QuestionText" value="<?php echo $qtext["QuestionText"];?>" />
+        </form>
+        <?php
+        }
+        ?>
     </div>
 </main>
 </div>
