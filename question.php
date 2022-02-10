@@ -31,20 +31,25 @@ elseif ($decy == 1)
     echo('<script src="js/QuestionTimer.js"></script>');
 }
 
-$qtext = $_SESSION["pytania"][$_SESSION["oper"]];
+$query = "SELECT QuestionText FROM questions WHERE id_quiz=".$_SESSION['id_quiz_gra']." AND QuestionNumber=".$_SESSION["oper"]+1;
+$run = $mysqli->query($query) or die($mysqli_error.__LINE__);
+$pytanie = mysqli_fetch_row($run);
+$x =$_SESSION["oper"]+1;
 
-foreach($_SESSION["odp"] as $key){
-    $x = $_SESSION["oper"]+1;
-    if($key["questionNumber"]==$x){
-        array_push($choices,$key);
-        array_shift($_SESSION["odp"]);
-    }
-    if($key["questionNumber"]>$x){
-        break;
-    }
-    
-}
-$_SESSION["wyb"]=$choices;
+$query = "SELECT choiceText FROM choices WHERE id_quiz=".$_SESSION['id_quiz_gra']." AND QuestionNumber=".$_SESSION["oper"]+1;
+$run = $mysqli->query($query) or die($mysqli_error.__LINE__);
+$odp = array();
+while($row = $run->fetch_assoc()){
+    array_push($odp, $row["choiceText"]);
+};
+
+
+$size = sizeof($odp);
+$_SESSION["size"] = $size;
+
+
+
+
 ?>
 <!-- wyświetlanie na stronie -->
 <header>
@@ -57,15 +62,17 @@ $_SESSION["wyb"]=$choices;
 <main>
     <div class="container">
         <div class="current">Question <?php echo $_SESSION["oper"]+1 //nr pyt;?> of <?php echo $_SESSION["total"] ;?> </div>
-        <p class="question"><?php echo $qtext["QuestionText"];?> </p>
+        <p class="question"><?php echo $pytanie[0];?> </p>
 
         <div><?php //tu będzie kiedyś zdjęcie?></div>
-
+        <?php
+        if($size!=0){
+        ?>
         <form action="process.php" method="post">
             <ul class="choices">
                 <?php
-                    foreach($choices as $key){?>
-                        <li><input type="radio" name="choice" value="<?php echo $key['choiceText'];?>"><?php echo $key['choiceText'];?></li>
+                    foreach ($odp as $key){?>
+                        <li><input type="radio" name="choice" value="<?php  echo $key;?>"><?php  echo $key;?></li>
                 <?php }; ?>
             </ul>
             <input id="NextQuest" type="submit" value="submit" class="btn btn-success"/>
@@ -73,6 +80,20 @@ $_SESSION["wyb"]=$choices;
             <input type="hidden" id='sciagal' name="sciagal" value="<?php echo $_SESSION["oper"]+1;?>" />
             <input type="hidden" name="QuestionText" value="<?php echo $qtext["QuestionText"];?>" />
         </form>
+        <?php }
+        else{?>
+            <form action="process.php" method="post" id="otwarte">
+            <ul class="choices">
+                <textarea rows = "4" cols = "40"  	name="otwarta" form_id="otwarte"></textarea>
+            </ul>
+            <input id="NextQuest" type="submit" value="submit" class="btn btn-success"/>
+            <input type="hidden" name="number" value="<?php echo $_SESSION["oper"]+1;?>" />
+            <input type="hidden" id='sciagal' name="sciagal" value="<?php echo $_SESSION["oper"]+1;?>" />
+            <input type="hidden" name="QuestionText" value="<?php echo $qtext["QuestionText"];?>" />
+        </form>
+        <?php
+        }
+        ?>
     </div>
 </main>
 </div>
@@ -113,6 +134,8 @@ $_SESSION["wyb"]=$choices;
 
 <?php include_once 'includes/footer.php'; 
 }
-else{
+else
+{
     header("logowanie/logowanie.php");
-}?>
+}
+?>

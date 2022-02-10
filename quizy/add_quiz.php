@@ -39,6 +39,7 @@
     <h1>DODAJ QUIZZ</h1>
     <form method="post" action='process.php'>
         Nazwa quizu: <input type="text" name="name" id="" required="required"><br>
+        
         <input class = "sub" type="submit" value="Create">
     </form>
 

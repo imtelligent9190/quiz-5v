@@ -7,7 +7,7 @@ if (isset($_POST['id_quiz'])){
     $_SESSION['id']=$_POST['id_quiz'];
     unset($_POST['id_quiz']);
 }
-if(isset($_POST['submit'])){
+if(isset($_POST['submit_mul'])){
     $questionNumber=$_POST['questionNumber'];
     $questiontext=$_POST['questionText'];
     $corectChoice=$_POST['correctChoice'];
@@ -47,6 +47,13 @@ if(isset($_POST['submit'])){
         $msg='Question has been added';
     }
 }
+if(isset($_POST['submit_op'])){
+    $questionNumber=$_POST['questionNumber'];
+    $questiontext=$_POST['questionText'];
+
+    $sql="INSERT INTO `questions`(`id_quiz`, `QuestionNumber`, `QuestionText`, `img`) VALUES('".$_SESSION['id']."','".$questionNumber."','".$questiontext."',null)";
+    $insertrow=$mysqli->query($sql) or die($mysqli->error.__LINE__);
+}
 $sql3 = "SELECT * FROM questions WHERE id_quiz='".$_SESSION['id']."'";
 $questions = $mysqli->query($sql3) or die($mysqli->error.__LINE__);
 $total = $questions->num_rows;
@@ -62,6 +69,7 @@ $next = $total+1;
         }
 
         ?>
+        <h3>Multiple Choice Questions</h3>
         <form action="dashboard.php" method="POST">
             <input type="hidden" name="id-quiz" value=<?php echo $_SESSION['id'];  ?>>
             <p>
@@ -96,9 +104,22 @@ $next = $total+1;
                 <label for="correctChoice">Correct Choice Number:</label>
                 <input type="number" name="correctChoice">
             </p>
-            <input type="submit" class="btn btn-primary" name="submit" value="Submit">
-            <a href="../index.php" class="btn btn-primary">Back</a>
-            <a href="gettxt.php" class="btn btn-primary">to txt</a>
+            <input type="submit" class="btn btn-primary" name="submit_mul" value="Submit">
+            
         </form>
+        <h3>Open-ended question</h3>
+        <form action="dashboard.php" method="POST">
+            <p>
+                <label for="questionNumber">Question Number</label>
+                <input type="number" value="<?php echo $next;?>" name="questionNumber">
+            </p>
+            <p>
+                <label for="questionText">Question Text</label>
+                <input type="text" name="questionText">
+            </p>
+            <input type="submit" class="btn btn-primary" name="submit_op" value="Submit">
+        </form>
+        <a href="../index.php" class="btn btn-primary">Back</a>
+        <a href="gettxt.php" class="btn btn-primary">to txt</a>
     </div>
 </mian>

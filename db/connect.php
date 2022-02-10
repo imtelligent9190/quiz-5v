@@ -1,15 +1,15 @@
 <?php
 
 //Parametry do lacznosci z lokalna developerska baza danych xamp
-// $dbHostName= "localhost";
-// $dbHostUser="root";
-// $dbHostPasswd="";
-// $dbName="quiz";
+$dbHostName= "localhost";
+$dbHostUser="root";
+$dbHostPasswd="";
+$dbName="quiz";
 
-$dbHostName= "sql4.5v.pl";
-$dbHostUser="stego_quiztako";
-$dbHostPasswd="ltfnusbh53";
-$dbName="stego_quiztako";
+// $dbHostName= "sql4.5v.pl";
+// $dbHostUser="stego_quiztako";
+// $dbHostPasswd="ltfnusbh53";
+// $dbName="stego_quiztako";
 
 //tworzenie obiektu mysql
 $mysqli = new mysqli($dbHostName, $dbHostUser, $dbHostPasswd,$dbName);
