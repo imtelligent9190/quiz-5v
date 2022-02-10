@@ -113,7 +113,7 @@ $rezultat=$mysqli->query($sql);
         <?php
         $ile=1;
             while($row=$rezultat->fetch_assoc()){
-                echo "<form method='post' action='wyniki_k.php'><tr><td class='id'>".$ile."<input type='hidden' value='".$row['id_sesji']."'</td>
+                echo "<form method='post' action='wyniki_k.php'><tr><td class='id'>".$ile."<input type='hidden' name= value='".$row['id_sesji']."'></td>
                 <td><input value='".$row['name']."'disabled></td>
                 <td><input value='".$row['data_start']."'disabled></td>
                 <td><input value='".$row['data_koniec']."'disabled></td>

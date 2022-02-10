@@ -50,8 +50,10 @@ if($end){
 }
 }
 else{
-    $wpisane = $_POST["otwarta"]; // otwarta odpowiedz jest tu 
-    
+    $wpisane = $_POST["otwarta"];
+    $zle=array($_SESSION["oper"]+1,$wpisane,'otwarta'); // otwarta odpowiedz jest tu 
+    array_push($_SESSION['zle'],$zle);
+
 }
 
 
