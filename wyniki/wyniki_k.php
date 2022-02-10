@@ -2,13 +2,12 @@
 include_once '../db/connect.php';
 include_once '../includes/header.php';
 session_start();
-if( isset($_POST['id_sesji'])){
+if( isset($_POST)){
     $id_sesji=$_POST['id_sesji'];
-    $_SESSION['wyniki_id_sesji']=$id_sesji;
 }
 if (isset($_POST['submit'])){
     $wyszukiwanie=$_POST['wyszukiwarka'];
-    $sql="SELECT * FROM wyniki WHERE `id_sesji`='".$_SESSION['wyniki_id_sesji']."'";
+    $sql="SELECT * FROM wyniki WHERE `id_sesji`='".$id_sesji."'";
     unset($_POST);
     $search=array();
     $index=0;
@@ -19,39 +18,11 @@ if (isset($_POST['submit'])){
     }
 
 }else{
-    $sql="SELECT * FROM wyniki WHERE `id_sesji`='".$_SESSION['wyniki_id_sesji']."'";
+    $sql="SELECT * FROM wyniki WHERE `id_sesji`='".$id_sesji."'";
     
 }
 $rezultat=$mysqli->query($sql);
-if (isset($_POST['sprawdzenie'])){
-    //bierze id quiz
-    $select="SELECT * FROM kolejka WHERE id_sesji='".$_SESSION['wyniki_id_sesji']."'";
-                $rezultat2=$mysqli->query($select);
-                $wiersz=$rezultat2->fetch_assoc();
-    // przypisuje wartosc post
-    $point=$_POST['ile_punktów'];
-    $info_o_uczniu=$_POST['info'];
-    $pytanie_ot=$_POST['quest_text'];
-    unset($_POST['sprawdzenie']);
-    
-    //bierze informacje o poprawnych ,złych i olgonych
-    $select_wynik=$mysqli->query("SELECT * FROM wyniki WHERE `id_sesji`='".$_SESSION['wyniki_id_sesji']."' AND id_u='".$info_o_uczniu."'");
-    $select_wyniki=$select_wynik->fetch_assoc();
-    $zle_poprawa=unserialize($select_wyniki['niepoprawne']);
-    print_r($zle_poprawa);
-    for ($i=0; $i < sizeof($zle_poprawa); $i++) { 
-        $selectquest="SELECT * FROM questions WHERE id_quiz='".$wiersz['id_quiz']."' AND QuestionNumber='".$zle_poprawa[$i][0]."'";
-                $quest=$mysqli->query($selectquest);
-                $questtext=$quest->fetch_assoc();
-        if ($questtext['QuestionText']==$pytanie_ot){
-            array_splice($zle_poprawa,$i,1);
-            break;
-        }
-    }
-    $zle=serialize($zle_poprawa);
-    $update=$mysqli->query("UPDATE wyniki SET niepoprawne='".$zle."', poprawne='".(int)$select_wyniki['poprawne']+$point."',total_question='".(int)$select_wyniki['total_question']+$point."' WHERE `id_sesji`='".$_SESSION['wyniki_id_sesji']."' AND id_u='".$info_o_uczniu."'");
-    header("Location: wyniki_k.php");
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -88,20 +59,20 @@ if (isset($_POST['sprawdzenie'])){
         $(document).ready(function(){
         $(".panel").hide();
         });
-        $(document).ready(function(){
-            $(".flip").click(function(){
-                if (rotate=='0deg'){
-                    rotate='180deg';
-                    $(this).find('i').css('transform','rotate('+rotate+')');
-                }else{
-                    rotate='0deg';
-                    $(this).find('i').css('transform','rotate('+rotate+')');
-                    
-                }
+$(document).ready(function(){
+    $(".flip").click(function(){
+        if (rotate=='0deg'){
+            rotate='180deg';
+            $(this).find('i').css('transform','rotate('+rotate+')');
+        }else{
+            rotate='0deg';
+            $(this).find('i').css('transform','rotate('+rotate+')');
+            
+        }
 
-                $(this).next().find(".panel").slideToggle("slow");
-            });
-        });
+        $(this).next().find(".panel").slideToggle("slow");
+    });
+});
     </script>
 
     <ul>
@@ -124,15 +95,12 @@ if (isset($_POST['sprawdzenie'])){
 
 
                 
-                for ($i=0; $i < sizeof($zle); $i++) {
-                    $selectquest="SELECT * FROM questions WHERE id_quiz='".$wiersz['id_quiz']."' AND QuestionNumber='".$zle[$i][0]."'";
+                for ($i=0; $i < sizeof($zle); $i++) { 
+                $selectquest="SELECT * FROM questions WHERE id_quiz='".$wiersz['id_quiz']."' AND QuestionNumber='".$zle[$i][0]."'";
                 // echo ($selectquest);
                 $quest=$mysqli->query($selectquest);
                 $questtext=$quest->fetch_assoc();
-                    if (isset($zle[$i][2])){
-                        echo "<div class='panel'><form method='post'><p>".$questtext['QuestionText']."<br><textarea disabled>".$zle[$i][1]."</textarea> <input name='ile_punktów' type='number'><input type='hidden' name='info' value='".$row['id_u']."'><input type='hidden' name='quest_text' value='".$questtext['QuestionText']."'><button type='submit' name='sprawdzenie'>save</button></form></p>";
-                    }else{
-                         echo "<div class='panel'><p>".$questtext['QuestionText']."
+                    echo "<div class='panel'><p>".$questtext['QuestionText']."
                             <ul>";
                         $selectchoice="SELECT * FROM choices WHERE id_quiz='".$wiersz['id_quiz']."' AND questionNumber='".$zle[$i][0]."'";
                         $choices=$mysqli->query($selectchoice);
@@ -151,9 +119,6 @@ if (isset($_POST['sprawdzenie'])){
                         }
                             echo"</ul></p>
                         </div>";
-                    }
-                
-                   
                        
                 } $ile++;
                     
