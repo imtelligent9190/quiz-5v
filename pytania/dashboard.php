@@ -2,6 +2,7 @@
 include_once '../includes/header.php';
 include_once '../db/connect.php';
 session_start();
+error_reporting(0);
 
 if (isset($_POST['id_quiz'])){
     $_SESSION['id']=$_POST['id_quiz'];
@@ -23,81 +24,44 @@ if(isset($_POST['submit_mul'])){
     
         $questionNumber=$_POST['questionNumber'];
         $questiontext=$_POST['questionText'];
-        $corectChoice=$_POST['correctChoice'];
-
-        $choice=array();
-        $choice[1]=$_POST['choice1'];
-        $choice[2]=$_POST['choice2'];
-        $choice[3]=$_POST['choice3'];
-        $choice[4]=$_POST['choice4'];
-        $choice[5]=$_POST['choice5'];
-
+        
         $sql="INSERT INTO `questions`(`id_quiz`, `QuestionNumber`, `QuestionText`, `img`) VALUES('".$_SESSION['id']."','".$questionNumber."','".$questiontext."','".$upload."')";
-
         $insertrow=$mysqli->query($sql) or die($mysqli->error.__LINE__);
 
-        if($insertrow){
-            foreach ($choice as $choice => $value) {
-                if ($value!=''){
-                    if($corectChoice==$choice){
-                        $isCorect=1;
-                    }
-                    else{
-                        $isCorect=0;
-                    }
+        for ($i=1; $i <6 ; $i++) {
+            $choice = "choice".$i;
+            $txt = $choice."_text";
+            if($_POST[$choice] == TRUE){
+                $query = "INSERT INTO choices VALUES ('".$_SESSION['id']."','".$questionNumber."',1,'".$_POST[$txt]."')";
+                $run=$mysqli->query($query) or die($mysqli->error.__LINE__);
 
-                    $sql2="INSERT INTO `choices`(`id_quiz`, `questionNumber`, `isCorrect`, `choiceText`) VALUES('".$_SESSION['id']."','".$questionNumber."','".$isCorect."','$value')";
-                    $inserrow2=$mysqli->query($sql2) or die($mysqli->error.__LINE__);
-
-                    if($inserrow2){
-                        continue;
-                    }
-                    else{
-                        die ('Error: ('.$mysqli->errno.') '.$mysqli->error);
-                    }
-                }
             }
-            $msg='Question has been added';
+            else{
+                $query = "INSERT INTO choices VALUES ('".$_SESSION['id']."','".$questionNumber."',0,'".$_POST[$txt]."')";
+                $run=$mysqli->query($query) or die($mysqli->error.__LINE__);
+            }
+            
         }
     }
     else{
         $questionNumber=$_POST['questionNumber'];
         $questiontext=$_POST['questionText'];
-        $corectChoice=$_POST['correctChoice'];
-
-        $choice=array();
-        $choice[1]=$_POST['choice1'];
-        $choice[2]=$_POST['choice2'];
-        $choice[3]=$_POST['choice3'];
-        $choice[4]=$_POST['choice4'];
-        $choice[5]=$_POST['choice5'];
-
+    
         $sql="INSERT INTO `questions`(`id_quiz`, `QuestionNumber`, `QuestionText`, `img`) VALUES('".$_SESSION['id']."','".$questionNumber."','".$questiontext."',null)";
-
         $insertrow=$mysqli->query($sql) or die($mysqli->error.__LINE__);
+        for ($i=1; $i <6 ; $i++) {
+            $choice = "choice".$i;
+            $txt = $choice."_text";
+            if($_POST[$choice] == TRUE){
+                $query = "INSERT INTO choices VALUES ('".$_SESSION['id']."','".$questionNumber."',1,'".$_POST[$txt]."')";
+                $run=$mysqli->query($query) or die($mysqli->error.__LINE__);
 
-        if($insertrow){
-            foreach ($choice as $choice => $value) {
-                if ($value!=''){
-                    if($corectChoice==$choice){
-                        $isCorect=1;
-                    }
-                    else{
-                        $isCorect=0;
-                    }
-
-                    $sql2="INSERT INTO `choices`(`id_quiz`, `questionNumber`, `isCorrect`, `choiceText`) VALUES('".$_SESSION['id']."','".$questionNumber."','".$isCorect."','$value')";
-                    $inserrow2=$mysqli->query($sql2) or die($mysqli->error.__LINE__);
-
-                    if($inserrow2){
-                        continue;
-                    }
-                    else{
-                        die ('Error: ('.$mysqli->errno.') '.$mysqli->error);
-                    }
-                }
             }
-            $msg='Question has been added';
+            else{
+                $query = "INSERT INTO choices VALUES ('".$_SESSION['id']."','".$questionNumber."',0,'".$_POST[$txt]."')";
+                $run=$mysqli->query($query) or die($mysqli->error.__LINE__);
+            }
+            
         }
     }
 }
@@ -156,28 +120,24 @@ $next = $total+1;
                 <input type="text" name="questionText">
             </p>
             <p>
-                <label for="choice1">Choice #1</label>
-                <input type="text" name="choice1">
+                <label for="choice1">Choice 1</label><br>
+                <input type="checkbox" id="choice1" name="choice1" value="cos"><input type="text" name="choice1_text">
             </p>
             <p>
-                <label for="choice2">Choice #2</label>
-                <input type="text" name="choice2">
+                <label for="choice2">Choice 2</label><br>
+                <input type="checkbox" id="choice2" name="choice2" value="cos"><input type="text" name="choice2_text">
             </p>
             <p>
-                <label for="choice3">Choice #3</label>
-                <input type="text" name="choice3">
+                <label for="choice3">Choice 3</label><br>
+                <input type="checkbox" id="choice3" name="choice3" value="cos"><input type="text" name="choice3_text">
             </p>
             <p>
-                <label for="choice4">Choice #4</label>
-                <input type="text" name="choice4">
+                <label for="choice4">Choice 4</label><br>
+                <input type="checkbox" id="choice4" name="choice4" value="cos"><input type="text" name="choice4_text">
             </p>
             <p>
-                <label for="choice5">Choice #5</label>
-                <input type="text" name="choice5">
-            </p>
-            <p>
-                <label for="correctChoice">Correct Choice Number:</label>
-                <input type="number" name="correctChoice">
+                <label for="choice5">Choice 5</label><br>
+                <input type="checkbox" id="choice5" name="choice5" value="cos"><input type="text" name="choice5_text">
             </p>
             <p>
             <label for="img" class="form-label" >Zdjęcie do Pytania</label>
