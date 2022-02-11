@@ -150,7 +150,7 @@ $rezultat=$mysqli->query($sql);
                 $rezultat2=$mysqli->query($sql2);
                 $totalcorrect=0;
                 $ilechice=$rezultat2->num_rows;
-                echo $ilechice;
+                // echo $ilechice;
                 while($row2=$rezultat2->fetch_assoc()){
                         echo "<td><input type='text' class='".$row['QuestionNumber']."' name='choice".$totalcorrect."' value='".$row2['choiceText']."'disabled></td>";
                     
@@ -164,14 +164,22 @@ $rezultat=$mysqli->query($sql);
                         $totalcorrect++;
                     }
                 }
-                for ($i=0; $i < 5-$ilechice ; $i++) { 
+                if ($ilechice!=0){
+                   for ($i=0; $i < 5-$ilechice ; $i++) { 
                     $totalcorrect++;
                     echo "<td><input name='choice".$totalcorrect."' class='".$row['QuestionNumber']."' value='-' disabled></td>";
                 }
                 echo "<td><input class='".$row['QuestionNumber']."' name='corect' value='".$correct."' type='number' min='1' max='5' disabled></td>
                 <td  class='Modyfikacja' QuestionNumber='".$row['QuestionNumber']."'><div ><button  onclick='change(".$row['QuestionNumber'].")' type='button' name=".$row['QuestionNumber']." value='edit' style='background-color: lightblue; border: none; '><i class='fas fa-pen' ></i></button></form>
                 <button onclick='deletee(".$row['QuestionNumber'].")' type='button' name=".$row['QuestionNumber']." value='DELETE' style='background-color: red; border: none;'><i class='fas fa-trash-alt'></i></button><div></td></tr>";
-                $ile++;
+                $ile++; 
+                }
+                else{
+                    echo "<td colspan='6'><input value='otwarte pytanie' disabled></td><td  class='Modyfikacja' QuestionNumber='".$row['QuestionNumber']."'><div ><button  onclick='change(".$row['QuestionNumber'].")' type='button' name=".$row['QuestionNumber']." value='edit' style='background-color: lightblue; border: none; '><i class='fas fa-pen' ></i></button></form>
+                    <button onclick='deletee(".$row['QuestionNumber'].")' type='button' name=".$row['QuestionNumber']." value='DELETE' style='background-color: red; border: none;'><i class='fas fa-trash-alt'></i></button><div></td></tr>";
+                    $ile++; 
+                }
+                
             }
             echo "<form method='post' action='../pytania/dashboard.php'><tr><td class='id'>".$ile."</td><input type='hidden' name='id_quiz' value='".$_GET['n']."'><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 <td  class='Modyfikacja' ><div ><button ' type='submit'  style='background-color: lime; border: none; '><i class='fas fa-plus'></i></button></form></tr>";
