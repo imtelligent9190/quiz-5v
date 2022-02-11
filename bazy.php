@@ -92,7 +92,7 @@ $query = "CREATE TABLE `wyniki` (
         for ($j=65; $j < ord($zakres[$i])+1; $j++) {
             $x=$i+1..chr($j);
             $select="SELECT * FROM klasa WHERE `klasa`='".$x."'";
-            echo $select;
+            //echo $select;
             $check=$mysqli->query($select);
             if ($check->num_rows==0){
                 $insert="INSERT INTO klasa VALUES('null','".$x."')";
