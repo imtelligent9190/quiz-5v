@@ -30,9 +30,14 @@ elseif ($decy == 1)
 {
     echo('<script src="js/QuestionTimer.js"></script>');
 }
+<<<<<<< HEAD
 $oper=$_SESSION["oper"]+1;
 $query = "SELECT QuestionText FROM questions WHERE id_quiz='".$_SESSION['id_quiz_gra']."' AND QuestionNumber='".$oper."'";
 // echo $query;
+=======
+
+$query = "SELECT QuestionText, img FROM questions WHERE id_quiz=".$_SESSION['id_quiz_gra']." AND QuestionNumber=".$_SESSION["oper"]+1;
+>>>>>>> 4d23d5110528bc9fd4ad55f89b19f0bdcea58803
 $run = $mysqli->query($query) or die($mysqli_error.__LINE__);
 $pytanie = mysqli_fetch_row($run);
 $x =$oper;
@@ -64,8 +69,12 @@ $_SESSION["size"] = $size;
     <div class="container">
         <div class="current">Question <?php echo $oper //nr pyt;?> of <?php echo $_SESSION["total"] ;?> </div>
         <p class="question"><?php echo $pytanie[0];?> </p>
-
-        <div><?php //tu będzie kiedyś zdjęcie?></div>
+        <?php
+        if($pytanie[1]!=NULL){
+            $src = substr($pytanie[1],3);
+            echo "<div><img src='".$src."'></div>";
+        }
+        ?>
         <?php
         if($size!=0){
         ?>
