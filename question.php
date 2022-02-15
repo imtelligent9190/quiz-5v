@@ -30,13 +30,14 @@ elseif ($decy == 1)
 {
     echo('<script src="js/QuestionTimer.js"></script>');
 }
-
-$query = "SELECT QuestionText FROM questions WHERE id_quiz=".$_SESSION['id_quiz_gra']." AND QuestionNumber=".$_SESSION["oper"]+1;
+$oper=$_SESSION["oper"]+1;
+$query = "SELECT QuestionText FROM questions WHERE id_quiz='".$_SESSION['id_quiz_gra']."' AND QuestionNumber='".$oper."'";
+// echo $query;
 $run = $mysqli->query($query) or die($mysqli_error.__LINE__);
 $pytanie = mysqli_fetch_row($run);
-$x =$_SESSION["oper"]+1;
+$x =$oper;
 
-$query = "SELECT choiceText FROM choices WHERE id_quiz=".$_SESSION['id_quiz_gra']." AND QuestionNumber=".$_SESSION["oper"]+1;
+$query = "SELECT choiceText FROM choices WHERE id_quiz='".$_SESSION['id_quiz_gra']."' AND QuestionNumber='".$oper."'";
 $run = $mysqli->query($query) or die($mysqli_error.__LINE__);
 $odp = array();
 while($row = $run->fetch_assoc()){
@@ -61,7 +62,7 @@ $_SESSION["size"] = $size;
 
 <main>
     <div class="container">
-        <div class="current">Question <?php echo $_SESSION["oper"]+1 //nr pyt;?> of <?php echo $_SESSION["total"] ;?> </div>
+        <div class="current">Question <?php echo $oper //nr pyt;?> of <?php echo $_SESSION["total"] ;?> </div>
         <p class="question"><?php echo $pytanie[0];?> </p>
 
         <div><?php //tu będzie kiedyś zdjęcie?></div>
@@ -76,8 +77,8 @@ $_SESSION["size"] = $size;
                 <?php }; ?>
             </ul>
             <input id="NextQuest" type="submit" value="submit" class="btn btn-success"/>
-            <input type="hidden" name="number" value="<?php echo $_SESSION["oper"]+1;?>" />
-            <input type="hidden" id='sciagal' name="sciagal" value="<?php echo $_SESSION["oper"]+1;?>" />
+            <input type="hidden" name="number" value="<?php echo $oper;?>" />
+            <input type="hidden" id='sciagal' name="sciagal" value="<?php echo $oper;?>" />
             <input type="hidden" name="QuestionText" value="<?php echo $qtext["QuestionText"];?>" />
         </form>
         <?php }
@@ -87,8 +88,8 @@ $_SESSION["size"] = $size;
                 <textarea rows = "4" cols = "40"  	name="otwarta" form_id="otwarte"></textarea>
             </ul>
             <input id="NextQuest" type="submit" value="submit" class="btn btn-success"/>
-            <input type="hidden" name="number" value="<?php echo $_SESSION["oper"]+1;?>" />
-            <input type="hidden" id='sciagal' name="sciagal" value="<?php echo $_SESSION["oper"]+1;?>" />
+            <input type="hidden" name="number" value="<?php echo $oper;?>" />
+            <input type="hidden" id='sciagal' name="sciagal" value="<?php echo $oper;?>" />
             <input type="hidden" name="QuestionText" value="<?php echo $qtext["QuestionText"];?>" />
         </form>
         <?php

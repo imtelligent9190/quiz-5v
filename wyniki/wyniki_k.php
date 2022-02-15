@@ -49,7 +49,9 @@ if (isset($_POST['sprawdzenie'])){
         }
     }
     $zle=serialize($zle_poprawa);
-    $update=$mysqli->query("UPDATE wyniki SET niepoprawne='".$zle."', poprawne='".(int)$select_wyniki['poprawne']+$point."',total_question='".(int)$select_wyniki['total_question']+$point."' WHERE `id_sesji`='".$_SESSION['wyniki_id_sesji']."' AND id_u='".$info_o_uczniu."'");
+    $poprawne=(int)$select_wyniki['poprawne']+$point;
+    $total=(int)$select_wyniki['total_question']+$point;
+    $update=$mysqli->query("UPDATE wyniki SET niepoprawne='".$zle."', poprawne='".$poprawne."',total_question='".$total."' WHERE `id_sesji`='".$_SESSION['wyniki_id_sesji']."' AND id_u='".$info_o_uczniu."'");
     header("Location: wyniki_k.php");
 }
 ?>

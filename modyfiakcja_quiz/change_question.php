@@ -150,10 +150,11 @@ $rezultat=$mysqli->query($sql);
                 $rezultat2=$mysqli->query($sql2);
                 $totalcorrect=0;
                 $ilechice=$rezultat2->num_rows;
+                $ktory_quest=0;
                 // echo $ilechice;
                 while($row2=$rezultat2->fetch_assoc()){
-                        echo "<td><input type='text' class='".$row['QuestionNumber']."' name='choice".$totalcorrect."' value='".$row2['choiceText']."'disabled></td>";
-                    
+                        echo "<td><input type='text' class='".$row['QuestionNumber']."' name='choice".$ktory_quest."' value='".$row2['choiceText']."'disabled></td>";
+                        $ktory_quest++;
                     
                     
                     if ($row2['isCorrect']==1){
@@ -167,7 +168,8 @@ $rezultat=$mysqli->query($sql);
                 if ($ilechice!=0){
                    for ($i=0; $i < 5-$ilechice ; $i++) { 
                     $totalcorrect++;
-                    echo "<td><input name='choice".$totalcorrect."' class='".$row['QuestionNumber']."' value='-' disabled></td>";
+                    echo "<td><input name='choice".$ktory_quest."' class='".$row['QuestionNumber']."' value='-' disabled></td>";
+                    $ktory_quest++;
                 }
                 echo "<td><input class='".$row['QuestionNumber']."' name='corect' value='".$correct."' type='number' min='1' max='5' disabled></td>
                 <td  class='Modyfikacja' QuestionNumber='".$row['QuestionNumber']."'><div ><button  onclick='change(".$row['QuestionNumber'].")' type='button' name=".$row['QuestionNumber']." value='edit' style='background-color: lightblue; border: none; '><i class='fas fa-pen' ></i></button></form>
