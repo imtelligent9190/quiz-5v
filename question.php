@@ -30,14 +30,11 @@ elseif ($decy == 1)
 {
     echo('<script src="js/QuestionTimer.js"></script>');
 }
-<<<<<<< HEAD
-$oper=$_SESSION["oper"]+1;
-$query = "SELECT QuestionText FROM questions WHERE id_quiz='".$_SESSION['id_quiz_gra']."' AND QuestionNumber='".$oper."'";
-// echo $query;
-=======
 
-$query = "SELECT QuestionText, img FROM questions WHERE id_quiz=".$_SESSION['id_quiz_gra']." AND QuestionNumber=".$_SESSION["oper"]+1;
->>>>>>> 4d23d5110528bc9fd4ad55f89b19f0bdcea58803
+$oper=$_SESSION["oper"]+1;
+$query = "SELECT QuestionText, img FROM questions WHERE id_quiz='".$_SESSION['id_quiz_gra']."' AND QuestionNumber='".$oper."'";
+// echo $query;
+
 $run = $mysqli->query($query) or die($mysqli_error.__LINE__);
 $pytanie = mysqli_fetch_row($run);
 $x =$oper;
