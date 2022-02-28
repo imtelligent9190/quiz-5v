@@ -8,10 +8,13 @@ if (isset($_POST)){
             $rezultat=$mysqli->query($sql);
             $id=$rezultat->fetch_assoc();
             $total=(int)$id['id']+1;
-            echo 'tu';
+            
             $insert="INSERT INTO quizy VALUES('null','".$name."','".$_SESSION['user-id']."')";
             if($rezultat=$mysqli->query($insert) or die ($mysqli_error.__LINE__)){
-                $_SESSION['id']=$total;
+                $query = $sql="SELECT id FROM quizy WHERE name='".$name."' AND id_n ='".$_SESSION['user-id']."'";
+                $run = $mysqli->query($query);
+                $id = mysqli_fetch_row($run);
+                $_SESSION['id']=$id[0];
                 header("Location: ../pytania/dashboard.php");
             };
 
