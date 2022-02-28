@@ -31,6 +31,7 @@ if(isset($_POST['submit_mul'])){
         for ($i=1; $i <6 ; $i++) {
             $choice = "choice".$i;
             $txt = $choice."_text";
+            strlen($_POST[$txt]);
             if(strlen($_POST[$txt])!=0){
                 if($_POST[$choice] == TRUE){
                     $query = "INSERT INTO choices VALUES ('".$_SESSION['id']."','".$questionNumber."',1,'".$_POST[$txt]."')";
@@ -55,6 +56,7 @@ if(isset($_POST['submit_mul'])){
         for ($i=1; $i <6 ; $i++) {
             $choice = "choice".$i;
             $txt = $choice."_text";
+            strlen($_POST[$txt]);
             if(strlen($_POST[$txt])!=0){
                 if($_POST[$choice] == TRUE){
                     $query = "INSERT INTO choices VALUES ('".$_SESSION['id']."','".$questionNumber."',1,'".$_POST[$txt]."')";
