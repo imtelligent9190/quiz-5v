@@ -49,6 +49,13 @@ while($row = $run->fetch_assoc()){
 $size = sizeof($odp);
 $_SESSION["size"] = $size;
 
+$kangurekKao = array();
+while(sizeof($kangurekKao)!=sizeof($odp)){
+    $rand = rand(0,sizeof($odp)-1);
+    if (!in_array($odp[$rand],$kangurekKao)){
+        array_push($kangurekKao,$odp[$rand]);
+    }
+}
 
 
 
@@ -91,7 +98,7 @@ $_SESSION["size"] = $size;
         <form action="process.php" method="post">
             <ul class="choices">
                 <?php
-                    foreach ($odp as $key){?>
+                    foreach ($kangurekKao as $key){?>
                         <li><input type="radio" name="choice" value="<?php  echo $key;?>"><?php  echo $key;?></li>
                 <?php }; ?>
             </ul>
