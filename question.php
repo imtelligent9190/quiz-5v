@@ -29,9 +29,11 @@ elseif ($decy == 1)
 {
     echo('<script src="js/QuestionTimer.js"></script>');
 }
+
 $oper=$_SESSION["oper"]+1;
 $query = "SELECT QuestionText, img FROM questions WHERE id_quiz='".$_SESSION['id_quiz_gra']."' AND QuestionNumber='".$oper."'";
 // echo $query;
+
 $run = $mysqli->query($query) or die($mysqli_error.__LINE__);
 $pytanie = mysqli_fetch_row($run);
 $x =$oper;
