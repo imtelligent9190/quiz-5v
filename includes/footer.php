@@ -1,6 +1,4 @@
-<html>
-<body>
-<footer>
+
     <div class="footer">
         <p>Copyright &copy; Kasprzak 2021</p>
 </div>

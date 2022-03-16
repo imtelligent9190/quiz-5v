@@ -14,8 +14,18 @@ session_start();
 </head>
 <body>
     <style>
+        body{
+            width:80%;
+            margin-left: auto;
+            margin-right: auto;
+            border-bottom: 2px solid black;
+        }
         form{
             display: grid;
+            width:80%;
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom:5px;
         }
         input["checkbox"]{
             display: block;
@@ -31,9 +41,22 @@ session_start();
             padding-top: 1em;
         }
         input[type = "submit"]{
-            background-color: blue;
-            border-radius: 10px;
-            color: white;
+            border:none;
+            border-bottom:2px solid lime;
+            color: black;
+            background-color:white;
+            width:20%;
+            margin-left: auto;
+            margin-right: auto;
+            font-size:20px;
+        }
+        input[type = "submit"]:hover{
+            cursor:pointer;
+            background-color:lightblue;
+            transition: .5s;
+        }
+        .grupa{
+            display:flex;
         }
     
     </style>
@@ -67,8 +90,8 @@ session_start();
                     echo "<br>";
                 }
             ?>
-        grupa: 
-        <div class="grupa">
+         
+        <div class="grupa">grupa:
         <input type="checkbox" name="1" value="1" >1 <br>
         <input type="checkbox" name="2" value="2">2 
             </div>
@@ -80,7 +103,7 @@ session_start();
                     echo "<br>";
                 }
             ?>
-        <input type="submit" value="Create">
+        <input type="submit" value="Zaplanuj">
     </form></div>
 </form>
 <datalist id="klasy">

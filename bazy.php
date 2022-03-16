@@ -45,7 +45,8 @@ $run = $mysqli->query($query);
 $query = "CREATE TABLE quizy(
     id int(100) PRIMARY KEY AUTO_INCREMENT,
     `name` varchar(200) NOT NULL,
-    id_n int(100) NOT NULL
+    id_n int(100) NOT NULL,
+    zakres_ocen text NOT NULL
 
 )";
 $run = $mysqli->query($query);

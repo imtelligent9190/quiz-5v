@@ -8,4 +8,6 @@
     <a href="index.php" class="btn btn-secondary"> back to menu</a> 
     </div>
 </main>
-<?php include_once 'includes/footer.php'; ?>
+<?php 
+
+// include_once 'includes/footer.php'; ?>

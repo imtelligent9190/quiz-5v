@@ -1,6 +1,5 @@
 <?php
 if(!isset($_SESSION['id_sesji']) and !isset($_SESSION['user']) and !isset($_SESSION['user-id'])){
-include_once 'includes/header.php';
 include_once 'db/connect.php';
 session_start();
 // print_r($_SESSION);
@@ -30,14 +29,9 @@ elseif ($decy == 1)
 {
     echo('<script src="js/QuestionTimer.js"></script>');
 }
-<<<<<<< HEAD
 $oper=$_SESSION["oper"]+1;
-$query = "SELECT QuestionText FROM questions WHERE id_quiz='".$_SESSION['id_quiz_gra']."' AND QuestionNumber='".$oper."'";
+$query = "SELECT QuestionText, img FROM questions WHERE id_quiz='".$_SESSION['id_quiz_gra']."' AND QuestionNumber='".$oper."'";
 // echo $query;
-=======
-
-$query = "SELECT QuestionText, img FROM questions WHERE id_quiz=".$_SESSION['id_quiz_gra']." AND QuestionNumber=".$_SESSION["oper"]+1;
->>>>>>> 4d23d5110528bc9fd4ad55f89b19f0bdcea58803
 $run = $mysqli->query($query) or die($mysqli_error.__LINE__);
 $pytanie = mysqli_fetch_row($run);
 $x =$oper;
@@ -57,6 +51,19 @@ $_SESSION["size"] = $size;
 
 
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit-no">
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/question.css">
+    <title>Quiz</title>
+</head>
+<body>
+</body>
+</html>
 <!-- wyświetlanie na stronie -->
 <header>
     <div class="container">
@@ -69,10 +76,11 @@ $_SESSION["size"] = $size;
     <div class="container">
         <div class="current">Question <?php echo $oper //nr pyt;?> of <?php echo $_SESSION["total"] ;?> </div>
         <p class="question"><?php echo $pytanie[0];?> </p>
+
         <?php
         if($pytanie[1]!=NULL){
             $src = substr($pytanie[1],3);
-            echo "<div><img src='".$src."'></div>";
+            echo "<div style='text-align:center;'><img style='widith:100px; height:100px;' src='".$src."'></div>";
         }
         ?>
         <?php
@@ -142,7 +150,8 @@ $_SESSION["size"] = $size;
     });
 </script> 
 
-<?php include_once 'includes/footer.php'; 
+<?php 
+// include_once 'includes/footer.php'; 
 }
 else
 {

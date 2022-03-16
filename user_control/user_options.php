@@ -13,19 +13,31 @@
 <style>
     body{
         width: 100%;
-        border-bottom: 2px solid black;
+
     }
     nav{
         margin: 0 auto;
         text-align: center;
         display: table;
         padding-top: 2em;
+        width:80%;
+        text-align:center;
+    }
+   .menu li{
+        margin-left:auto;
+        margin-right:auto;
+        align-items: center;
     }
     a{
         font-size: 1em;
         font-family: sans-serif;
         font-style: normal;
         font-weight: 100;
+    }
+    #pills-home{
+        width:100%;
+        height: 600px;
+        overflow-y:scroll;
     }
     
 </style>
@@ -73,6 +85,7 @@ while($row=$selectscoree->fetch_assoc()){
 ?>
 
 <nav>
+    <div class='menu'>
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
     <li class="nav-item" role="presentation">
         <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Quizy</button>
@@ -93,7 +106,7 @@ while($row=$selectscoree->fetch_assoc()){
     <!-- <li class="nav-item" role="presentation">
         <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Inne Opcje?</button>
     </li> -->
-    </ul>
+    </ul></div>
     <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
             <ul class="list-group">

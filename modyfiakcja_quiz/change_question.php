@@ -26,7 +26,16 @@ $rezultat=$mysqli->query($sql);
     <title>Document</title>
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <style>
-
+        html{
+            width:100%;
+            height:100%;
+        }
+        body{
+            margin-top:30px;
+            width:80%;
+            margin-left:auto;
+            margin-right:auto;
+        }
         table,tr,th,td{
             border: 2px solid #121221;
             transition: 0.5s;
@@ -57,6 +66,34 @@ $rezultat=$mysqli->query($sql);
         div{
             display:inline-block;
         }
+        a{
+            text-decoration: none;
+            border: 1px solid black;
+            border-radius: 10px;
+            color: white;
+            background: lightblue;
+            color: black;
+            text-align:center;
+            margin-right:5px;
+            margin-left:5px;
+            padding: 2px 10px;
+            margin-left:auto;
+            margin-right:auto;
+        }
+        a:hover{
+            text-decoration: none;
+            color: black;
+        }
+         input{
+            border:none;
+            background:transparent;
+        }
+        .gora{
+            margin: 0 auto;
+            width: 100%;
+            text-align: center;
+            padding: 2em;
+        }
     </style>
 </head>
 <body>
@@ -65,8 +102,9 @@ $rezultat=$mysqli->query($sql);
         var zapisane=true;
         var aktualne=0;
         function change(id){
-            var przycisk=document.getElementsByName(id);
+            var przycisk=document.getElementById(id);
             console.log(id)
+            console.log(zapisane)
             if (aktualne==0){
                 aktualne=id
             }
@@ -83,7 +121,7 @@ $rezultat=$mysqli->query($sql);
                 var przycisk=document.getElementsByName(id);
                 przycisk[0].innerHTML='<i class="fas fa-save"></i>';
                 przycisk[0].style.backgroundColor='lime';
-                przycisk[1].style.display='none'
+                
                 zapisane=false; 
             }
             else if (aktualne==id && zapisane==false){
@@ -99,10 +137,10 @@ $rezultat=$mysqli->query($sql);
             
         }
         var pierwszy=0
-        function deletee(id2){
+        function deletee(id2,id_quiz){
             var przycisk2=document.getElementsByName(id2);
             var przyciski=document.getElementById(id2);
-            przyciski.innerHTML="<button  onclick='deletee("+id2+")' type='button' name="+id2+" value='edit' style='background-color: lime; border: none; '><i class='fas fa-check'></i></button><button onclick='window.location.reload()' type='submit' name="+id2+" value='DELETE' style='background-color: red; border: none;'><i class='fas fa-times-circle'></i></button>"
+            przyciski.innerHTML="<button  onclick='deletee("+id2+","+id_quiz+")' type='button' name="+id2+" value='edit' style='background-color: lime; border: none; '><i class='fas fa-check'></i></button><button onclick='window.location.reload()' type='submit' name="+id2+" value='DELETE' style='background-color: red; border: none;'><i class='fas fa-times-circle'></i></button>"
             if (pierwszy==0){
                 // przycisk2[0].style.display='none';
                 // przycisk2[1].innerHTML='<i class="fas fa-check"></i>';
@@ -112,7 +150,7 @@ $rezultat=$mysqli->query($sql);
                 
                 // przycisk[1].setAttribute('name','delete');
                 // przycisk[1].value=id2;
-                location.href="delete.php?n="+id2;
+                location.href="delete_quest.php?n="+id2+"&id_quiz="+id_quiz;
                 }
             
         }
@@ -124,10 +162,6 @@ $rezultat=$mysqli->query($sql);
     </script>
     
     <table>
-        <form method="post">
-        <input name="wyszukiwarka" type="text">
-        <input type="submit" name='submit'value='Szukaj'>
-        </form>
         <tr>
             <th class='id'>question Number</th>
             <th class='Login'>question</th>
@@ -144,10 +178,16 @@ $rezultat=$mysqli->query($sql);
         <?php
         $ile=1;
             while($row=$rezultat->fetch_assoc()){
-                echo "<form method='post' action='save_change.php?n=".$_GET['n']."&quest_id=".$row['QuestionNumber']."'><tr><td class='id'>".$row['QuestionNumber']."</td>
+                if($row['QuestionNumber']%2==0){
+                    $color='lightgray';
+                }else{
+                    $color='white';
+                }
+                echo "<form method='post' action='save_change.php?n=".$_GET['n']."&quest_id=".$row['QuestionNumber']."'><tr style='background-color:".$color.";'><td class='id'>".$row['QuestionNumber']."</td>
                 <td><input class='".$row['QuestionNumber']."' name='login".$row['QuestionNumber']."' value='".$row['QuestionText']."'disabled></td>";
                 $sql2="SELECT * FROM choices WHERE id_quiz='".$_GET['n']."' AND     questionNumber='".$row['QuestionNumber']."'";
                 $rezultat2=$mysqli->query($sql2);
+                
                 $totalcorrect=0;
                 $ilechice=$rezultat2->num_rows;
                 $ktory_quest=0;
@@ -172,13 +212,13 @@ $rezultat=$mysqli->query($sql);
                     $ktory_quest++;
                 }
                 echo "<td><input class='".$row['QuestionNumber']."' name='corect' value='".$correct."' type='number' min='1' max='5' disabled></td>
-                <td  class='Modyfikacja' QuestionNumber='".$row['QuestionNumber']."'><div ><button  onclick='change(".$row['QuestionNumber'].")' type='button' name=".$row['QuestionNumber']." value='edit' style='background-color: lightblue; border: none; '><i class='fas fa-pen' ></i></button></form>
-                <button onclick='deletee(".$row['QuestionNumber'].")' type='button' name=".$row['QuestionNumber']." value='DELETE' style='background-color: red; border: none;'><i class='fas fa-trash-alt'></i></button><div></td></tr>";
+                <td  class='Modyfikacja' id='".$row['QuestionNumber']."'><div ><button  onclick='change(".$row['QuestionNumber'].")' type='button' name=".$row['QuestionNumber']." value='edit' style='background-color: lightblue; border: none; '><i class='fas fa-pen' ></i></button></form>
+                <button onclick='deletee(".$row['QuestionNumber'].",".$_GET['n'].")' type='button' name=".$row['QuestionNumber']." value='DELETE' style='background-color: red; border: none;'><i class='fas fa-trash-alt'></i></button><div></td></tr>";
                 $ile++; 
                 }
                 else{
-                    echo "<td colspan='6'><input value='otwarte pytanie' disabled></td><td  class='Modyfikacja' QuestionNumber='".$row['QuestionNumber']."'><div ><button  onclick='change(".$row['QuestionNumber'].")' type='button' name=".$row['QuestionNumber']." value='edit' style='background-color: lightblue; border: none; '><i class='fas fa-pen' ></i></button></form>
-                    <button onclick='deletee(".$row['QuestionNumber'].")' type='button' name=".$row['QuestionNumber']." value='DELETE' style='background-color: red; border: none;'><i class='fas fa-trash-alt'></i></button><div></td></tr>";
+                    echo "<td colspan='6'><input value='pytanie otwarte' disabled></td><td  class='Modyfikacja' id='".$row['QuestionNumber']."'><div ><button  onclick='change(".$row['QuestionNumber'].")' type='button' name=".$row['QuestionNumber']." value='edit' style='background-color: lightblue; border: none; '><i class='fas fa-pen' ></i></button></form>
+                    <button onclick='deletee(".$row['QuestionNumber'].",".$_GET['n'].")' type='button' id=".$row['QuestionNumber']." value='DELETE' style='background-color: red; border: none;'><i class='fas fa-trash-alt'></i></button><div></td></tr>";
                     $ile++; 
                 }
                 
@@ -187,7 +227,7 @@ $rezultat=$mysqli->query($sql);
                 <td  class='Modyfikacja' ><div ><button ' type='submit'  style='background-color: lime; border: none; '><i class='fas fa-plus'></i></button></form></tr>";
 
         ?>
-        <a type='submit' value='zapisz' href="modify_quiz.php">back to menu<a>
+        <div class='gora'> <a type='submit' value='zapisz' href="modify_quiz.php">back to menu</a></div>
     
     </table>
 </body>

@@ -11,7 +11,10 @@ else{
     $choice=$mysqli->query($selectquest);
     $ilerekordów=$choice->num_rows;
     $ile=0;
+    $pytanie=$_POST['login'.$id_pytanie];
     print_r($_POST);
+    $update="UPDATE `questions` SET `QuestionText`='".$pytanie."' WHERE questionNumber='".$id_pytanie."' AND id_quiz='".$n."'";
+    $update2=$mysqli->query($update);
     if (sizeof($_POST)-3==$ilerekordów){
         //jezeli jest tyel samo pytan co w bazie 
         while($choiceszbaz=$choice->fetch_assoc()){

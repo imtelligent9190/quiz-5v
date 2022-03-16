@@ -62,7 +62,7 @@ $_SESSION["total"]=$total;
 <!-- Needed -->
 </div>
 <?php
-include_once 'includes/footer.php';
+// include_once 'includes/footer.php';
 ?>
 </div>
 </main>

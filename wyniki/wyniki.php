@@ -1,6 +1,6 @@
 <?php
 include_once '../db/connect.php';
-include_once '../includes/header.php';
+
 session_start();
 if (isset($_POST['submit'])){
     $wyszukiwanie=$_POST['wyszukiwarka'];
@@ -36,21 +36,44 @@ $rezultat=$mysqli->query($sql);
     <title>Document</title>
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <style>
-
-        table,tr,th,td{
+        body{
+            width:80%;
+            margin-left:auto;
+            margin-right:auto;
+        }
+        h1{
+            width: 100%;
+            border-bottom: 2px solid black;
+            text-align: center;
+            padding: 1em;
+        }
+        .gora{
+            margin: 0 auto;
+            width: 100%;
+            text-align: center;
+            padding: 2em;
+        }
+        
+        tr,th,td{
             border: 2px solid #121221;
             transition: 0.5s;
+            font-size:15px;
         }
         th,td{
-            width:180px;
+            width:150px;
             text-align:center;
+            margin-left:0px;
+            margin-right:0px;
+            
         }
         .id{
             width:20px;
         }
         table{
-            margin: 0px;
+            width: 80%;
+            margin: 0 auto;
             position: relative;
+            border-collapse:collapse;
         }
         td input{
             text-align:center;
@@ -79,23 +102,40 @@ $rezultat=$mysqli->query($sql);
             text-align: center;
             padding: 1em;
         }
-        a{
+        .przyciski{
             text-decoration: none;
             border: 1px solid black;
             border-radius: 10px;
-            background-color: blue;
-            color: white;   
-            padding: 3px 10px;
+            color: white;
+            background: lightblue;
+            color: black;
+            text-align:center;
+            margin-right:5px;
+            margin-left:5px;
+            padding: 2px 10px;
         }
+        a:hover{
+            text-decoration: none;
+            color: black;
+        }
+        input{
+            border:none;
+            background:transparent;
+        }
+        .search{
+            border:2px solid black;
+            border-radius:5px;
+        }
+
     </style>
 </head>
 <body>
     <h1>Wyniki QUIZZU</h1>
     <div class="gora">
     <form method="post">
-        <input name="wyszukiwarka" type="text">
-        <input type="submit" name='submit'value='Szukaj'>
-        <a type='submit' value='zapisz' href="../index.php">back to menu</a>
+        <input class='search' name="wyszukiwarka" type="text">
+        <input class='przyciski' type="submit" name='submit'value='Szukaj'>
+        <a class='przyciski' type='submit' value='zapisz' href="../index.php">back to menu</a>
         </form></div>
     <table>
         
@@ -113,7 +153,12 @@ $rezultat=$mysqli->query($sql);
         <?php
         $ile=1;
             while($row=$rezultat->fetch_assoc()){
-                echo "<form method='post' action='wyniki_k.php'><tr><td class='id'>".$ile."<input type='hidden' name= value='".$row['id_sesji']."'></td>
+                if($ile%2==0){
+                    $color='lightgray';
+                }else{
+                    $color='white';
+                }
+                echo "<form method='post' action='wyniki_k.php'><tr style='background-color:".$color.";'><td class='id'>".$ile."<input type='hidden' name= value='".$row['id_sesji']."'></td>
                 <td><input value='".$row['name']."'disabled></td>
                 <td><input value='".$row['data_start']."'disabled></td>
                 <td><input value='".$row['data_koniec']."'disabled></td>

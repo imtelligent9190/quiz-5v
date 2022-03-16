@@ -39,18 +39,11 @@ $rezultat=$mysqli->query($sql);
             border: 2px solid #121221;
             transition: 0.5s;
         }
-        table>form{
-            margin: 0 auto;
-            text-align: center;
+        input{
+            background:transparent;
+            border:none;
         }
-        a{
-            text-decoration: none;
-            border: 1px solid black;
-            border-radius: 10px;
-            color: white;
-            background: blue;
-/*            padding: 10px;*/
-        }
+
         input["submit"]{
             color: blue;
             margin: 0 auto;
@@ -86,8 +79,25 @@ $rezultat=$mysqli->query($sql);
             display: table;
             padding-top: 2em;
         }
-        div{
-/*            display:inline-block;*/
+        .search{
+            border:2px solid black;
+            border-radius:5px;
+        }
+        .przyciki{
+            text-decoration: none;
+            border: 1px solid black;
+            border-radius: 10px;
+            color: white;
+            background: lightblue;
+            color: black;
+            text-align:center;
+            padding-right: 10px 2em;
+            margin-right:5px;
+            margin-left:5px;
+        }
+        a:hover{
+            text-decoration: none;
+            color: black;
         }
     </style>
 </head>
@@ -160,10 +170,11 @@ $rezultat=$mysqli->query($sql);
     <table>
         <div class="gora">
         <form method="post">
-            <input name="wyszukiwarka" type="text">
-            <input type="submit" name='submit'value='Szukaj'>
-            <a type='submit' value='zapisz' href="../index.php">back to menu<a>
+            <input class='search' name="wyszukiwarka" type="text">
+            <input class='przyciki'  type="submit" name='submit'value='Szukaj'>
+            
         </form>
+        <a  class='przyciki' type='submit' value='zapisz' href="../index.php">back to menu</a>
             </div>
         <tr>
             <th class='id'>id</th>
@@ -181,15 +192,20 @@ $rezultat=$mysqli->query($sql);
         <?php
         $ile=1;
             while($row=$rezultat->fetch_assoc()){
-                echo "<form method='post' action='change.php'><tr><td class='id'>".$ile."</td>
-                <td><input class='".$row['id']."' name='login".$row['id']."' value='".$row['login']."'disabled></td>
-                <td><input type='password' class='".$row['id']."' name='haslo".$row['id']."' value='".base64_decode($row['haslo'])."'disabled></td>
-                <td><input class='".$row['id']."' name='klasa".$row['id']."' value='".$row['klasa']."'disabled></td>
-                <td><input class='".$row['id']."' name='grupa".$row['id']."' value='".$row['grupa']."'disabled></td>
-                <td><input class='".$row['id']."' name='imie".$row['id']."' value='".$row['imie']."'disabled></td>
-                <td><input class='".$row['id']."' name='nazwisko".$row['id']."' value='".$row['nazwisko']."'disabled></td>
-                <td><input class='".$row['id']."' name='admin".$row['id']."' value='".$row['admin']."' type='number' min='0' max='1' disabled></td>
-                <td  class='Modyfikacja' id='".$row['id']."'><div ><button  onclick='change(".$row['id'].")' type='button' name=".$row['id']." value='edit' style='background-color: lightblue; border: none; '><i class='fas fa-pen' ></i></button></form>
+                if($ile%2==0){
+                    $color='lightgray';
+                }else{
+                    $color='white';
+                }
+                echo "<form method='post' action='change.php'><tr><td style='background-color:".$color.";' class='id'>".$ile."</td>
+                <td style='background-color:".$color.";'><input class='".$row['id']."' name='login".$row['id']."' value='".$row['login']."'disabled></td>
+                <td style='background-color:".$color.";'><input type='password' class='".$row['id']."' name='haslo".$row['id']."' value='".base64_decode($row['haslo'])."'disabled></td>
+                <td style='background-color:".$color.";'><input class='".$row['id']."' name='klasa".$row['id']."' value='".$row['klasa']."'disabled></td>
+                <td style='background-color:".$color.";'><input class='".$row['id']."' name='grupa".$row['id']."' value='".$row['grupa']."'disabled></td>
+                <td style='background-color:".$color.";'><input class='".$row['id']."' name='imie".$row['id']."' value='".$row['imie']."'disabled></td>
+                <td style='background-color:".$color.";'><input class='".$row['id']."' name='nazwisko".$row['id']."' value='".$row['nazwisko']."'disabled></td>
+                <td style='background-color:".$color.";'><input class='".$row['id']."' name='admin".$row['id']."' value='".$row['admin']."' type='number' min='0' max='1' disabled></td>
+                <td style='background-color:".$color.";'  class='Modyfikacja' id='".$row['id']."'><div ><button  onclick='change(".$row['id'].")' type='button' name=".$row['id']." value='edit' style='background-color: lightblue; border: none; '><i class='fas fa-pen' ></i></button></form>
                 <button onclick='deletee(".$row['id'].")' type='button' name=".$row['id']." value='DELETE' style='background-color: red; border: none;'><i class='fas fa-trash-alt'></i></button><div></td></tr>";
                 $ile++;
             }

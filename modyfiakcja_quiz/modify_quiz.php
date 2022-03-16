@@ -31,6 +31,12 @@ $rezultat=$mysqli->query($sql);
     <title>Document</title>
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <style>
+        body{
+            margin-top:30px;
+            width:80%;
+            margin-left:auto;
+            margin-right:auto;
+        }
         h1{
             width: 100%;
             border-bottom: 2px solid black;
@@ -43,18 +49,19 @@ $rezultat=$mysqli->query($sql);
             text-align: center;
             padding: 2em;
         }
-        .gora>a{
+        /* .gora>a{
             text-decoration: none;
             border: 1px solid black;
             background-color: blue;
             border-radius: 10px;
             color: white;
             padding: 2px 10px;
-        }
+        } */
         
         table,tr,th,td{
             border: 2px solid #121221;
             transition: 0.5s;
+            border-collapse:collapse;
         }
         th,td{
             width:150px;
@@ -82,6 +89,30 @@ $rezultat=$mysqli->query($sql);
         }
         div{
             display:inline-block;
+        }
+        .przyciski{
+            text-decoration: none;
+            border: 1px solid black;
+            border-radius: 10px;
+            color: white;
+            background: lightblue;
+            color: black;
+            text-align:center;
+            margin-right:5px;
+            margin-left:5px;
+            padding: 2px 10px;
+        }
+        a:hover{
+            text-decoration: none;
+            color: black;
+        }
+         input{
+            border:none;
+            background:transparent;
+        }
+        .szukaj{
+            border:2px solid black;
+            border-radius:5px;
         }
     </style>
 </head>
@@ -120,12 +151,12 @@ $rezultat=$mysqli->query($sql);
     
     </script>
     <h1>Modyfikowanie QUIZZU</h1>
-    <table>
+    <table cellspacing="0">
         <div class="gora">
         <form method="post">
-        <input name="wyszukiwarka" type="text">
-        <input type="submit" name='submit'value='Szukaj'>
-            <a type='submit' value='zapisz' href="../index.php">back to menu</a>
+        <input class='szukaj' name="wyszukiwarka" type="text">
+        <input class='przyciski' type="submit" name='submit'value='Szukaj'>
+            <a class='przyciski' type='submit' value='zapisz' href="../index.php">back to menu</a>
         </form>
                 </div>
         <tr>
@@ -138,7 +169,12 @@ $rezultat=$mysqli->query($sql);
         <?php
         $ile=1;
             while($row=$rezultat->fetch_assoc()){
-                echo "<form method='post' action='change.php'><tr><td class='id'>".$ile."<input type='hidden' name='quiz_id' value='".$row['id']."'></td>
+                if($ile%2==0){
+                    $color='lightgray';
+                }else{
+                    $color='white';
+                }
+                echo "<form method='post' action='change.php'><tr style='background-color:".$color.";'><td class='id'>".$ile."<input type='hidden' name='quiz_id' value='".$row['id']."'></td>
                 <td><input class='".$row['id']."' name='login".$row['id']."' value='".$row['name']."'disabled></td>
                 <td  class='Modyfikacja' id='".$row['id']."'><div ><button  onclick='change(".$row['id'].")' type='button' name=".$row['id']." value='edit' style='background-color: lightblue; border: none; '><i class='fas fa-pen' ></i></button></form>
                 <button onclick='deletee(".$row['id'].")' type='button' name=".$row['id']." value='DELETE' style='background-color: red; border: none;'><i class='fas fa-trash-alt'></i></button><div></td></tr>";
@@ -151,3 +187,6 @@ $rezultat=$mysqli->query($sql);
     </table>
 </body>
 </html>
+
+
+                echo "<form method='post' action='change.php'><tr><td style='background-color:".$color.";' 

@@ -31,12 +31,15 @@ $rezultat=$mysqli->query($sql);
         }
         body{
             display: block;
+            width:80%;
+            margin-left:auto;
+            margin-right:auto;
         }
-        body>a{
+        /* body>a{
             margin: 1em auto;
             width: 80%;
             display: block;
-/*            margin: 0 auto;*/
+            margin: 0 auto;
             text-decoration: none;
             border: 1px solid black;
             border-radius: 10px;
@@ -45,7 +48,7 @@ $rezultat=$mysqli->query($sql);
             text-align: center;
             background-color: blue;
             color: white;
-        }
+        } */
         table,tr,th,td{
             border: 2px solid #121221;
             transition: 0.5s;
@@ -75,6 +78,32 @@ $rezultat=$mysqli->query($sql);
         }
         div{
             display:inline-block;
+        }
+        a{
+            text-decoration: none;
+            border: 1px solid black;
+            border-radius: 10px;
+            color: white;
+            background: lightblue;
+            color: black;
+            text-align:center;
+            
+            padding: 2px 10px;
+            margin: 1em auto;
+        }
+        a:hover{
+            text-decoration: none;
+            color: black;
+        }
+         input{
+            border:none;
+            background:transparent;
+        }
+        .gora{
+            margin: 0 auto;
+            width: 100%;
+            text-align: center;
+            padding: 2em;
         }
     </style>
 </head>
@@ -153,7 +182,12 @@ $rezultat=$mysqli->query($sql);
         <?php
         $ile=1;
             while($row=$rezultat->fetch_assoc()){
-                echo "<form method='post' action='change.php'><tr><td class='id'>".$ile."<input type='hidden' name='id-s' value='".$row['id_sesji']."'</td>
+                if($ile%2==0){
+                    $color='lightgray';
+                }else{
+                    $color='white';
+                }
+                echo "<form method='post' action='change.php'><tr style='background-color:".$color.";'><td class='id'>".$ile."<input type='hidden' name='id-s' value='".$row['id_sesji']."'</td>
                 <td><input list='name-quiz' class='".$row['id_sesji']."' name='name".$row['id_sesji']."' value='".$row['name']."'disabled></td>
                 <td><input  class='".$row['id_sesji']."' name='data-s".$row['id_sesji']."' value='".$row['data_start']."'disabled></td>
                 <td><input class='".$row['id_sesji']."' name='data-k".$row['id_sesji']."' value='".$row['data_koniec']."'disabled></td>
@@ -171,7 +205,7 @@ $rezultat=$mysqli->query($sql);
         echo "<option value='".$row['name']."'>";
     }?>
   </datalist> 
-        <a type='submit' value='zapisz' href="../index.php">back to menu</a>
+        <div class='gora'><a type='submit' value='zapisz' href="../index.php">back to menu</a></div>
     
     </table>
 </body>

@@ -31,15 +31,19 @@ if(isset($_POST['submit_mul'])){
         for ($i=1; $i <6 ; $i++) {
             $choice = "choice".$i;
             $txt = $choice."_text";
-            if($_POST[$choice] == TRUE){
-                $query = "INSERT INTO choices VALUES ('".$_SESSION['id']."','".$questionNumber."',1,'".$_POST[$txt]."')";
-                $run=$mysqli->query($query) or die($mysqli->error.__LINE__);
-
+            strlen($_POST[$txt]);
+            if(strlen($_POST[$txt])!=0){
+                if($_POST[$choice] == TRUE){
+                    $query = "INSERT INTO choices VALUES ('".$_SESSION['id']."','".$questionNumber."',1,'".$_POST[$txt]."')";
+                    $run=$mysqli->query($query) or die($mysqli->error.__LINE__);
+    
+                }
+                else{
+                    $query = "INSERT INTO choices VALUES ('".$_SESSION['id']."','".$questionNumber."',0,'".$_POST[$txt]."')";
+                    $run=$mysqli->query($query) or die($mysqli->error.__LINE__);
+                }
             }
-            else{
-                $query = "INSERT INTO choices VALUES ('".$_SESSION['id']."','".$questionNumber."',0,'".$_POST[$txt]."')";
-                $run=$mysqli->query($query) or die($mysqli->error.__LINE__);
-            }
+            
             
         }
     }
@@ -52,16 +56,18 @@ if(isset($_POST['submit_mul'])){
         for ($i=1; $i <6 ; $i++) {
             $choice = "choice".$i;
             $txt = $choice."_text";
-            if($_POST[$choice] == TRUE){
-                $query = "INSERT INTO choices VALUES ('".$_SESSION['id']."','".$questionNumber."',1,'".$_POST[$txt]."')";
-                $run=$mysqli->query($query) or die($mysqli->error.__LINE__);
+            strlen($_POST[$txt]);
+            if(strlen($_POST[$txt])!=0){
+                if($_POST[$choice] == TRUE){
+                    $query = "INSERT INTO choices VALUES ('".$_SESSION['id']."','".$questionNumber."',1,'".$_POST[$txt]."')";
+                    $run=$mysqli->query($query) or die($mysqli->error.__LINE__);
 
+                }
+                else{
+                    $query = "INSERT INTO choices VALUES ('".$_SESSION['id']."','".$questionNumber."',0,'".$_POST[$txt]."')";
+                    $run=$mysqli->query($query) or die($mysqli->error.__LINE__);
+                }
             }
-            else{
-                $query = "INSERT INTO choices VALUES ('".$_SESSION['id']."','".$questionNumber."',0,'".$_POST[$txt]."')";
-                $run=$mysqli->query($query) or die($mysqli->error.__LINE__);
-            }
-            
         }
     }
 }
