@@ -48,7 +48,7 @@ if($end){
     $_SESSION['score']++;
 
 }else{
-    $zle=array($_SESSION["oper"]+1,$wybrany);
+    $zle=array($pyt,$wybrany);
     array_push($_SESSION['zle'],$zle);
 }
 }
