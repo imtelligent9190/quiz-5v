@@ -35,6 +35,7 @@
 <div class="sidebar">
   <ul>
 <?php
+
   if (!isset($_SESSION['user-id'])){
     header("Location: logowanie/logowanie.php");
     if (isset($_SESSION['klasa'])){
@@ -93,9 +94,11 @@
 
 
 <?php
+
 if (isset($_SESSION['grupa']) && isset($_SESSION['klasa'])){
   $ile=0;
-  $date=gmdate('Y-m-d H:i:s',time()+3600);
+  $date=date('Y-m-d H:i:s',time());
+  // echo $date;
   $aktualny = strtotime($date);
   $query="SELECT * FROM kolejka WHERE klasa='".$_SESSION['klasa']."' AND grupa='3' OR klasa='".$_SESSION['klasa']."' AND grupa LIKE'".$_SESSION['grupa']."'";
   $results= $mysqli->query($query) or die($mysqli_error.__LINE__);
@@ -104,6 +107,7 @@ if (isset($_SESSION['grupa']) && isset($_SESSION['klasa'])){
       $query2="SELECT * FROM `wyniki` WHERE `imie_i_nazwisko`='".$_SESSION['user']."' AND `id_sesji`='".$row['id_sesji']."'";
       $results2= $mysqli->query($query2) or die($mysqli_error.__LINE__);
       if ($results2->num_rows==0){
+        
         $start= strtotime($row['data_start']);
         $koniec= strtotime($row['data_koniec']);
         if($start<$aktualny && $aktualny<$koniec){
@@ -114,12 +118,11 @@ if (isset($_SESSION['grupa']) && isset($_SESSION['klasa'])){
         }
       }
   }
-  if ($ile==0){
+  }if ($ile==0){
     echo "<div style='text-align:center; width:100%;'><p>Nie masz żadnych zaplanowanych quizów</p></div>";
   }
-  }
-  
 }
+
 
 
 
