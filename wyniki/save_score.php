@@ -7,7 +7,7 @@ $query = "SELECT * FROM questions WHERE id_quiz='".$_SESSION['id_quiz_gra']."'";
 $result= $mysqli->query($query) or die($mysqli_error.__LINE__);
 $total=$result->num_rows;
 $ile=$_GET['sciagal'];
-$koniec=gmdate('H:i:s',time()+3600);
+$koniec=date('H:i:s',time());
 
 
 
