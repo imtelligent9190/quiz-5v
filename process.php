@@ -1,5 +1,5 @@
 <?php
-
+//proces
 use function PHPSTORM_META\type;
 
 include_once 'includes/header.php'; ?>
@@ -34,7 +34,8 @@ else{
 if($_SESSION["size"]!=0){
 
 $oper = $_SESSION["oper"]+1;
-$query = 'SELECT choiceText FROM choices WHERE id_quiz='.$_SESSION['id_quiz_gra'].' AND isCorrect = 1 AND  QuestionNumber='.$oper;
+$pyt = $_SESSION["kolejnosc"][$_SESSION["oper"]];
+$query = 'SELECT choiceText FROM choices WHERE id_quiz='.$_SESSION['id_quiz_gra'].' AND isCorrect = 1 AND  QuestionNumber='.$pyt;
 $run =  $mysqli->query($query);
 $poprawna = mysqli_fetch_row($run);
 $poprawna = $poprawna[0];

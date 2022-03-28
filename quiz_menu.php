@@ -1,4 +1,5 @@
 <?php
+//quiz_menu
     include_once 'db/connect.php';
     include_once 'includes/header.php';
     session_start();
@@ -17,7 +18,8 @@
     $_SESSION["oper"]=0;
     $_SESSION["total"]=0;
     $_SESSION["wyb"]=array();
-
+    $kangurekKao = array();
+    $_SESSION["kolejnosc"];
 ?>
 
 
@@ -30,6 +32,7 @@ $results= $mysqli->query($query) or die($mysqli_error.__LINE__);
 $quiz=$results->fetch_assoc();
 $_SESSION['id_quiz_gra']=$quiz['id_quiz'];
 
+
 $selectquiz="SELECT * FROM quizy WHERE id='".$quiz['id_quiz']."'";
 $results2= $mysqli->query($query) or die($mysqli_error.__LINE__);
 $quiz2=$results2->fetch_assoc();
@@ -37,6 +40,18 @@ $select="SELECT * FROM questions WHERE id_quiz='".$quiz['id_quiz']."'";
 $rezultat=$mysqli->query($select);
 $total=$rezultat->num_rows;
 $_SESSION["total"]=$total;
+
+
+
+
+
+while(sizeof($kangurekKao)!=$total){
+    $rand = rand(1,$total);
+    if (!in_array($rand,$kangurekKao)){
+        array_push($kangurekKao,$rand);
+    }
+}
+$_SESSION["kolejnosc"]=$kangurekKao;
 ?>
 
 <div class="container">

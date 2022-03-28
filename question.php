@@ -1,8 +1,9 @@
 <?php
+//question
 if(!isset($_SESSION['id_sesji']) and !isset($_SESSION['user']) and !isset($_SESSION['user-id'])){
 include_once 'db/connect.php';
 session_start();
-// print_r($_SESSION);
+//print_r($_SESSION["kolejnosc"]);
 
 if(!isset($_SESSION['start'])){
     $_SESSION['start']=gmdate('H:i:s',time()+3600);
@@ -31,14 +32,15 @@ elseif ($decy == 1)
 }
 
 $oper=$_SESSION["oper"]+1;
-$query = "SELECT QuestionText, img FROM questions WHERE id_quiz='".$_SESSION['id_quiz_gra']."' AND QuestionNumber='".$oper."'";
+$pyt = $_SESSION["kolejnosc"][$_SESSION["oper"]];
+$query = "SELECT QuestionText, img FROM questions WHERE id_quiz='".$_SESSION['id_quiz_gra']."' AND QuestionNumber='".$pyt."'";
 // echo $query;
 
 $run = $mysqli->query($query) or die($mysqli_error.__LINE__);
 $pytanie = mysqli_fetch_row($run);
 $x =$oper;
 
-$query = "SELECT choiceText FROM choices WHERE id_quiz='".$_SESSION['id_quiz_gra']."' AND QuestionNumber='".$oper."'";
+$query = "SELECT choiceText FROM choices WHERE id_quiz='".$_SESSION['id_quiz_gra']."' AND QuestionNumber='".$pyt."'";
 $run = $mysqli->query($query) or die($mysqli_error.__LINE__);
 $odp = array();
 while($row = $run->fetch_assoc()){
