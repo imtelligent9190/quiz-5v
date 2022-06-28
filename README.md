@@ -1,4 +1,6 @@
 # quiz-5v
+Just a simple quiz platform in basic PHP
+<br>
 you can see it running at: http://quiz-host.5v.pl/ 
 <br>
 <br>
